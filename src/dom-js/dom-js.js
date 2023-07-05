@@ -20,4 +20,13 @@ function createInput (id, type, name) {
 
   return input;
 }
-export{createBasicElm, createInput};
+
+function createLabel (forLbl, text) {
+  const label = document.createElement('label');
+  label.forHtml = forLbl;
+  label.textContent = text;
+
+  return label;
+}
+
+export{createBasicElm, createInput, createLabel};
