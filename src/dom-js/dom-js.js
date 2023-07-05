@@ -11,4 +11,13 @@ function createBasicElm (type, className, textContent) {
   return element;
 }
 
-export{createBasicElm}
+function createInput (id, type, name) {
+  const input = document.createElement('input');
+
+  input.id = id;
+  input.type = type;
+  input.name = name;
+
+  return input;
+}
+export{createBasicElm, createInput};
