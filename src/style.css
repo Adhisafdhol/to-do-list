@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'roboto';
-  src: url('./fonts/Roboto/roboto-regular-webfont.woff2') format('woff2'),
-       url('./fonts/Roboto/roboto-regular-webfont.woff') format('woff');
+  src: url('./fonts/roboto/roboto-regular-webfont.woff2') format('woff2'),
+       url('./fonts/roboto/roboto-regular-webfont.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 
@@ -9,8 +9,8 @@
 
 @font-face {
   font-family: 'roboto';
-  src: url('./fonts/Roboto/roboto-bold-webfont.woff2') format('woff2'),
-       url('./fonts/Roboto/roboto-bold-webfont.woff') format('woff');
+  src: url('./fonts/roboto/roboto-bold-webfont.woff2') format('woff2'),
+       url('./fonts/roboto/roboto-bold-webfont.woff') format('woff');
   font-weight: 700;
   font-style: bold;
 
@@ -60,6 +60,7 @@
   --light-grey: #CBD5E1;
   --grey: #A3A3A3;
   --dark-blue: #1D4ED8;
+  --header-icons-width: clamp(25px, 30px, 4vh);;
 }
 
 body {
@@ -86,6 +87,27 @@ body {
   align-items: center;
   background-color: var(--accent-color-1);
   padding: clamp(0.75rem, 1.25rem, 2.5vh);
+}
+
+.sidebar-btn {
+  position: relative;
+  width: var(--header-icons-width);
+  height: var(--header-icons-width);
+  background-color: transparent;
+  outline: none;
+  border: none;
+  margin-right: max(1.5rem, 2.25vw);
+}
+
+.sidebar-btn::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--header-icons-width);
+  height: var(--header-icons-width);
+  content: "";
+  background-image: url(./img/icons/three-horizontal-lines-icon.svg);
+  background-size: 100% 100%;
 }
 
 .main-header > h1 {
