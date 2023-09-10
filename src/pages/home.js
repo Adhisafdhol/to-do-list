@@ -1,35 +1,16 @@
-import { createBasicElm } from '../dom-js/dom-js';
-
 function home () {
-  const home = createBasicElm('div', 'home', null);
-
-  const button = createBasicElm('button', 'add', null);
-
-  home.appendChild(sidebar());
-  home.appendChild(taskList());
-  home.appendChild(button);
-  return home;
-}
-
-function sidebar() {
-  const sidebar = createBasicElm('div', 'sidebar', null)
-  const yourTasks = createBasicElm('div', null, 'Dashboard');
-  const allTasks = createBasicElm('div', null, 'All Tasks')
-
-  sidebar.appendChild(yourTasks);
-  sidebar.appendChild(allTasks);
+  const homeContainer = document.createElement('div');
+  homeContainer.classList.add('home-container');
   
-  return sidebar;
-}
+  const mainHeader = document.createElement('div');
+  mainHeader.classList.add('main-header');
+  homeContainer.appendChild(mainHeader);
 
-function taskList() {
-  const taskList = createBasicElm('div', 'task-list', null);
-
-  const taskName = createBasicElm('h1', 'header', 'All Tasks');
-
-  taskList.appendChild(taskName);
-
-  return taskList;
+  const mainHeading = document.createElement('h1');
+  mainHeading.textContent = 'Task.Daily';
+  mainHeader.appendChild(mainHeading);
+  mainHeader.appendChild(document.createElement('span'));
+  return homeContainer;
 }
 
 export { home };
