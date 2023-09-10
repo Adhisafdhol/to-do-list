@@ -28,20 +28,23 @@ function sidebar() {
   const sidebar = document.createElement('nav');
   sidebar.classList.add('sidebar');
 
-  const today = document.createElement('div');
+  const sidebarList = document.createElement('ul');
+  sidebar.appendChild(sidebarList);
+
+  const today = document.createElement('li');
   today.setAttribute('data-key', 'today');
   today.textContent = 'Today';
-  sidebar.appendChild(today);
+  sidebarList.appendChild(today);
 
-  const next7Days = document.createElement('div');
+  const next7Days = document.createElement('li');
   next7Days.setAttribute('data-key', 'next-7-days');
   next7Days.textContent = 'Next 7 Days';
-  sidebar.appendChild(next7Days);
+  sidebarList.appendChild(next7Days);
 
-  const allTask = document.createElement('div');
+  const allTask = document.createElement('li');
   allTask.setAttribute('data-key', 'all-task');
   allTask.textContent = 'All Tasks';
-  sidebar.appendChild(allTask);
+  sidebarList.appendChild(allTask);
 
   return sidebar;
 }
