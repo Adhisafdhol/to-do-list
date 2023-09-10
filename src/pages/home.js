@@ -1,10 +1,14 @@
 function home () {
   const homeContainer = document.createElement('div');
   homeContainer.classList.add('home-container');
-  
+  homeContainer.appendChild(mainHeader());
+  homeContainer.appendChild(sidebar());
+  return homeContainer;
+}
+
+function mainHeader() {
   const mainHeader = document.createElement('div');
   mainHeader.classList.add('main-header');
-  homeContainer.appendChild(mainHeader);
 
   const sidebarBtn = document.createElement('button');
   sidebarBtn.classList.add('sidebar-btn');
@@ -15,7 +19,8 @@ function home () {
   mainHeading.textContent = 'Task.Daily';
   mainHeader.appendChild(mainHeading);
   mainHeader.appendChild(document.createElement('span'));
-  return homeContainer;
+
+  return mainHeader;
 }
 
 function sidebar() {
