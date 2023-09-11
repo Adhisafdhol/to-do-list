@@ -32,18 +32,27 @@ function sidebar() {
   sidebar.appendChild(sidebarList);
 
   const today = document.createElement('li');
-  today.setAttribute('data-key', 'today');
-  today.textContent = 'Today';
+  const todayBtn = document.createElement('button');
+  todayBtn.setAttribute('data-key', 'today');
+  todayBtn.setAttribute('type', 'button');
+  todayBtn.textContent = 'Today';
+  today.appendChild(todayBtn);
   sidebarList.appendChild(today);
 
   const next7Days = document.createElement('li');
-  next7Days.setAttribute('data-key', 'next-7-days');
-  next7Days.textContent = 'Next 7 Days';
+  const next7DaysBtn = document.createElement('button');
+  next7DaysBtn.setAttribute('data-key', 'next-7-days');
+  next7DaysBtn.setAttribute('type', 'button');
+  next7DaysBtn.textContent = 'Next 7 Days';
+  next7Days.appendChild(next7DaysBtn);
   sidebarList.appendChild(next7Days);
 
   const allTask = document.createElement('li');
-  allTask.setAttribute('data-key', 'all-task');
-  allTask.textContent = 'All Tasks';
+  const allTaskBtn = document.createElement('button');
+  allTaskBtn.setAttribute('data-key', 'all-task');
+  allTaskBtn.setAttribute('type', 'button');
+  allTaskBtn.textContent = 'All Tasks';
+  allTask.appendChild(allTaskBtn);
   sidebarList.appendChild(allTask);
 
   return sidebar;

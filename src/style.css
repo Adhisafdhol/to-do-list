@@ -150,3 +150,9 @@ body {
   flex-direction: column;
   gap: 0.5rem;
 }
+
+.sidebar > ul button {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+}
