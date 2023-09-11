@@ -182,6 +182,8 @@ body {
 
 .main-content button[data-key="add-task"] {
   display: flex;
+  align-items: center;
+  font-size: var(0.5rem, 0.75rem, 1.25vw);
   gap: clamp(0.25rem, 0.5rem, 0.5vw);
   width: var(--sidebar-width);
   position: absolute;
