@@ -67,6 +67,8 @@
   --accent-color-2: #2f3924;
   --accent-color-3: #191d13;
   --header-icons-width: clamp(0.5rem, 1.25rem, 3vw);
+  --small-padding: clamp(0.15rem, 0.25rem, 0.35vw) clamp(0.25rem, 0.5rem, 0.5vw);
+  --sidebar-width: clamp(150px, 200px, 15vw);
 }
 
 body {
@@ -141,7 +143,7 @@ body {
   gap: 0.5rem;
   color: var(--dark-color-2);
   font-size: clamp(1rem, 1.5rem, 1.45vw);
-  width: clamp(150px, 200px, 15vw);
+  width: var(--sidebar-width);
   background-color: var(--light-color-1);
 }
 
@@ -165,7 +167,7 @@ body {
 }
 
 .sidebar > ul > li {
-  padding: clamp(0.15rem, 0.25rem, 0.35vw) clamp(0.25rem, 0.5rem, 0.5vw);
+  padding: var(--small-padding);
 }
 
 .sidebar > ul > li:hover {
@@ -181,12 +183,12 @@ body {
 .main-content button[data-key="add-task"] {
   display: flex;
   gap: clamp(0.25rem, 0.5rem, 0.5vw);
-  width: clamp(150px, 200px, 15vw);
+  width: var(--sidebar-width);
   position: absolute;
   border: 1px solid var(--accent-color-3);
   color: var(--accent-color-3);
   border-radius: 3px;
-  padding: clamp(0.15rem, 0.25rem, 0.35vw) clamp(0.25rem, 0.5rem, 0.5vw);
+  padding: var(--small-padding);
   bottom: 0;
   margin-bottom: clamp(0.75rem, 1.25rem, 1.5vw);
 }
