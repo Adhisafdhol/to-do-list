@@ -138,7 +138,7 @@ body {
   gap: 0.5rem;
   flex: 1;
   color: var(--dark-color-2);
-  font-size: clamp(1rem, 1.5rem, 1.5vw);
+  font-size: clamp(1rem, 1.5rem, 1.45vw);
   width: clamp(150px, 200px, 15vw);
   background-color: var(--light-color-1);
 }
