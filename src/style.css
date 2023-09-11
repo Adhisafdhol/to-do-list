@@ -196,6 +196,11 @@ body {
   margin-bottom: clamp(0.75rem, 1.25rem, 1.5vw);
 }
 
+.main-content button[data-key="add-task"]:hover {
+  border-color: var(--light-color-2);
+  box-shadow: inset 0 -5px var(--light-color-2);
+}
+
 button[data-key="add-task"]::before {
   content: " ";
   background-image: url(./img/icons/plus.svg);
