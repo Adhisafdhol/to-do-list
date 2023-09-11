@@ -1,3 +1,5 @@
+import { add } from "date-fns";
+
 function home () {
   const homeContainer = document.createElement('div');
   homeContainer.classList.add('home-container');
@@ -62,8 +64,21 @@ function sidebar() {
 function mainContent() {
   const mainContent = document.createElement('main');
   mainContent.classList.add('main-content');
-  
+  mainContent.appendChild(addTask());
+
   return mainContent;
+}
+
+function addTask() {
+  const btnContainer = document.createElement('div');
+  btnContainer.classList.add('add-task-container');
+  const addTaskBtn = document.createElement('button');
+  addTaskBtn.textContent = 'Add task';
+  addTaskBtn.setAttribute('data-key', 'add-task');
+  addTaskBtn.setAttribute('type', 'button');
+  btnContainer.appendChild(addTaskBtn);
+
+  return btnContainer;
 }
 
 export { home };
