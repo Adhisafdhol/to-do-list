@@ -134,7 +134,7 @@ body {
 .sidebar {
   display: flex;
   flex-direction: column;
-  padding: clamp(1rem, 1.5rem, 2.5vw);
+  padding: clamp(0.5rem, 1rem, 2vw);
   gap: 0.5rem;
   flex: 1;
   color: var(--dark-color-2);
