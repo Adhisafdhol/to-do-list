@@ -87,6 +87,9 @@ body {
   min-height: 100vh;
 }
 
+button {
+  cursor: pointer;
+}
 .main-header {
   grid-column: 1/3;
   display: flex;
@@ -97,7 +100,6 @@ body {
 
 .sidebar-btn {
   position: relative;
-  cursor: pointer;
   width: var(--header-icons-width);
   height: var(--header-icons-width);
   background-color: transparent;
@@ -159,7 +161,6 @@ body {
   background-color: inherit;
   color: inherit;
   border: none;
-  cursor: pointer;
 }
 
 .sidebar > ul >li:hover {
