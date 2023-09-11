@@ -149,11 +149,19 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 }
 
 .sidebar > ul button {
   background-color: inherit;
   border: none;
   cursor: pointer;
+}
+
+.sidebar > ul > li {
+  padding: clamp(0.25rem, 0.5rem, 0.5vw);
+}
+
+.sidebar > ul > li:hover {
+  background-color: var(--light-color-2);
+  border-radius: 3px;
 }
