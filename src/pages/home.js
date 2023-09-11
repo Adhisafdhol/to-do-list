@@ -3,6 +3,7 @@ function home () {
   homeContainer.classList.add('home-container');
   homeContainer.appendChild(mainHeader());
   homeContainer.appendChild(sidebar());
+  homeContainer.appendChild(mainContent());
 
   return homeContainer;
 }
@@ -57,4 +58,12 @@ function sidebar() {
 
   return sidebar;
 }
+
+function mainContent() {
+  const mainContent = document.createElement('main');
+  mainContent.classList.add('main-content');
+  
+  return mainContent;
+}
+
 export { home };
