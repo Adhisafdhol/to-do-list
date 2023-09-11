@@ -92,6 +92,7 @@ body {
 
 .sidebar-btn {
   position: relative;
+  cursor: pointer;
   width: var(--header-icons-width);
   height: var(--header-icons-width);
   background-color: transparent;
