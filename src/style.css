@@ -153,8 +153,13 @@ body {
 
 .sidebar > ul button {
   background-color: inherit;
+  color: inherit;
   border: none;
   cursor: pointer;
+}
+
+.sidebar > ul >li:hover {
+  color: var(--light-color-1);
 }
 
 .sidebar > ul > li {
@@ -162,6 +167,6 @@ body {
 }
 
 .sidebar > ul > li:hover {
-  background-color: var(--light-color-2);
+  background-color: var(--dark-color-1);
   border-radius: 3px;
 }
