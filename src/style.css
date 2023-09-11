@@ -184,7 +184,7 @@ body {
   display: flex;
   align-items: center;
   background-color: inherit;
-  font-size: var(0.5rem, 0.75rem, 1.25vw);
+  font-size: clamp(0.9rem, 1rem, 1.5vw);
   gap: clamp(0.25rem, 0.5rem, 0.5vw);
   width: var(--sidebar-width);
   position: absolute;
