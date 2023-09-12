@@ -1,5 +1,5 @@
 import { add } from "date-fns";
-import { printTaskDom } from "../print-tasks";
+import { printAllTasks, printTaskDom } from "../print-tasks";
 import { toDoList } from "../todo";
 
 function home () {
@@ -38,6 +38,7 @@ function sidebar() {
 
   const today = document.createElement('li');
   const todayBtn = document.createElement('button');
+  todayBtn.classList.add('view-task');
   todayBtn.setAttribute('data-key', 'today');
   todayBtn.setAttribute('type', 'button');
   todayBtn.textContent = 'Today';
@@ -46,6 +47,7 @@ function sidebar() {
 
   const next7Days = document.createElement('li');
   const next7DaysBtn = document.createElement('button');
+  todayBtn.classList.add('view-task');
   next7DaysBtn.setAttribute('data-key', 'next-7-days');
   next7DaysBtn.setAttribute('type', 'button');
   next7DaysBtn.textContent = 'Next 7 Days';
@@ -54,6 +56,7 @@ function sidebar() {
 
   const allTask = document.createElement('li');
   const allTaskBtn = document.createElement('button');
+  todayBtn.classList.add('view-task');
   allTaskBtn.setAttribute('data-key', 'all-task');
   allTaskBtn.setAttribute('type', 'button');
   allTaskBtn.textContent = 'All Tasks';
@@ -66,7 +69,7 @@ function sidebar() {
 function mainContent() {
   const mainContent = document.createElement('main');
   mainContent.classList.add('main-content');
-  mainContent.appendChild(printTaskDom(toDoList));
+  mainContent.appendChild(printAllTasks(toDoList));
   mainContent.appendChild(addTask());
 
   return mainContent;
