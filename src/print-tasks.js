@@ -1,14 +1,14 @@
-function taskContainer(obj) {
-  const taskContainer = document.createElement('div');
-  taskContainer.classList.add('task');
-  return taskContainer;
+const taskDom = (obj) => {
+  const titleDom = taskPropertyDom(obj, 'title');
+  const dateDom = taskPropertyDom(obj, 'date');
+  const priorityDom = taskPropertyDom(obj, 'priority');
+
+  return [titleDom, dateDom, priorityDom];
 }
 
 function createTaskDom(obj) {
-  const container = taskContainer(obj);
-  for (let key in obj) {
-    container.appendChild(taskPropertyDom(obj, key));
-  }
+  const container = createWrapperWithClass('div', 'task');
+  taskDom(obj).forEach(item => container.appendChild(item));
 
   return container;
 }
@@ -21,8 +21,7 @@ function taskPropertyDom(obj, key) {
   return taskProperty;
 }
 
-
-function printTaskDom(dataContainer) {
+function printAllTasks(dataContainer) {
   const taskListContainer = createWrapperWithClass('div', 'task-list');
 
   dataContainer.forEach(obj => {
@@ -32,10 +31,7 @@ function printTaskDom(dataContainer) {
   return taskListContainer;
 }
 
-function printAllTAsks() {
-
-}
-
+//Create wrapper container
 function createWrapper(tag) {
   const container = document.createElement(tag);
 
@@ -49,4 +45,4 @@ function createWrapperWithClass(tag, name) {
   return container;
 }
 
-export {printTaskDom};
+export {printAllTasks};
