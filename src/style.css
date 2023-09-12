@@ -209,3 +209,10 @@ button[data-key="add-task"]::before {
   height: var(--header-icons-width);
   background-size: 100% 100%;
 }
+
+.task {
+  background-color: var(--dark-color-2);
+  color: var(--light-color-1);
+  width: 300px;
+  padding: clamp(0.5rem, 1rem, 2vw);
+}
