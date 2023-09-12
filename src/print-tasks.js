@@ -23,14 +23,30 @@ function taskPropertyDom(obj, key) {
 
 
 function printTaskDom(dataContainer) {
-  const taskListContainer = document.createElement('div');
-  taskListContainer.classList.add('task-list');
+  const taskListContainer = createWrapperWithClass('div', 'task-list');
 
   dataContainer.forEach(obj => {
       taskListContainer.appendChild(createTaskDom(obj));
   });
 
   return taskListContainer;
+}
+
+function printAllTAsks() {
+
+}
+
+function createWrapper(tag) {
+  const container = document.createElement(tag);
+
+  return container;
+}
+
+function createWrapperWithClass(tag, name) {
+  const container = createWrapper(tag)
+  container.classList.add(name);
+
+  return container;
 }
 
 export {printTaskDom};
