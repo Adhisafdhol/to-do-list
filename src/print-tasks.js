@@ -45,4 +45,4 @@ function createWrapperWithClass(tag, name) {
   return container;
 }
 
-export {printAllTasks};
+export {printAllTasks, createWrapperWithClass};

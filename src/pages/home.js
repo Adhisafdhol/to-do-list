@@ -1,6 +1,7 @@
 import { add } from "date-fns";
-import { printAllTasks, printTaskDom } from "../print-tasks";
+import { printAllTasks, createWrapperWithClass} from "../print-tasks";
 import { toDoList } from "../todo";
+import { viewTaskMode } from "../controller";
 
 function home () {
   const homeContainer = document.createElement('div');
@@ -37,31 +38,22 @@ function sidebar() {
   sidebar.appendChild(sidebarList);
 
   const today = document.createElement('li');
-  const todayBtn = document.createElement('button');
-  todayBtn.classList.add('view-task');
-  todayBtn.setAttribute('data-key', 'today');
-  todayBtn.setAttribute('type', 'button');
-  todayBtn.textContent = 'Today';
+  const todayBtn = createButton('view-task', 'Today');
   today.appendChild(todayBtn);
   sidebarList.appendChild(today);
+  today.addEventListener('click', () => console.log('hi'))
 
   const next7Days = document.createElement('li');
-  const next7DaysBtn = document.createElement('button');
-  todayBtn.classList.add('view-task');
-  next7DaysBtn.setAttribute('data-key', 'next-7-days');
-  next7DaysBtn.setAttribute('type', 'button');
-  next7DaysBtn.textContent = 'Next 7 Days';
+  const next7DaysBtn = createButton('view-task', 'Next 7 Days');
   next7Days.appendChild(next7DaysBtn);
   sidebarList.appendChild(next7Days);
+  next7DaysBtn.addEventListener('click', () => console.log('hi'))
 
   const allTask = document.createElement('li');
-  const allTaskBtn = document.createElement('button');
-  todayBtn.classList.add('view-task');
-  allTaskBtn.setAttribute('data-key', 'all-task');
-  allTaskBtn.setAttribute('type', 'button');
-  allTaskBtn.textContent = 'All Tasks';
+  const allTaskBtn = createButton('view-task', 'All tasks');
   allTask.appendChild(allTaskBtn);
   sidebarList.appendChild(allTask);
+  allTaskBtn.addEventListener('click', () => console.log('hi'))
 
   return sidebar;
 }
@@ -85,6 +77,15 @@ function addTask() {
   btnContainer.appendChild(addTaskBtn);
 
   return btnContainer;
+}
+
+function createButton(name, dataKey) {
+  const button = createWrapperWithClass('button', name)
+  button.setAttribute('data-key', dataKey.toLowerCase());
+  button.setAttribute('type', 'button');
+  button.textContent = dataKey;
+
+  return button;
 }
 
 export { home };
