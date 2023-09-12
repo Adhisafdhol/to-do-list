@@ -1,7 +1,6 @@
 function taskContainer(obj) {
   const taskContainer = document.createElement('div');
   taskContainer.classList.add('task');
-  taskContainer.setAttribute('data-index', `${obj.index}`);
   return taskContainer;
 }
 
@@ -24,9 +23,14 @@ function taskPropertyDom(obj, key) {
 
 
 function printTaskDom(dataContainer) {
+  const taskListContainer = document.createElement('div');
+  taskListContainer.classList.add('task-list');
+
   dataContainer.forEach(obj => {
-      createTaskDom(obj);
+      taskListContainer.appendChild(createTaskDom(obj));
   });
+
+  return taskListContainer;
 }
 
 export {printTaskDom};

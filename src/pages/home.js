@@ -1,4 +1,6 @@
 import { add } from "date-fns";
+import { printTaskDom } from "../print-tasks";
+import { toDoList } from "../todo";
 
 function home () {
   const homeContainer = document.createElement('div');
@@ -64,6 +66,7 @@ function sidebar() {
 function mainContent() {
   const mainContent = document.createElement('main');
   mainContent.classList.add('main-content');
+  mainContent.appendChild(printTaskDom(toDoList));
   mainContent.appendChild(addTask());
 
   return mainContent;
