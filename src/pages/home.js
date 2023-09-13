@@ -6,9 +6,14 @@ import { viewTaskMode } from "../controller";
 function home () {
   const homeContainer = document.createElement('div');
   homeContainer.classList.add('home-container');
+
+  const content = document.createElement('div');
+  content.classList.add('content');
+
   homeContainer.appendChild(mainHeader());
-  homeContainer.appendChild(sidebar());
-  homeContainer.appendChild(mainContent());
+  homeContainer.appendChild(content);
+  content.appendChild(sidebar());
+  content.appendChild(mainContent());
 
   return homeContainer;
 }
@@ -41,19 +46,16 @@ function sidebar() {
   const todayBtn = createButton('view-task', 'Today');
   today.appendChild(todayBtn);
   sidebarList.appendChild(today);
-  today.addEventListener('click', () => console.log('hi'))
 
   const next7Days = document.createElement('li');
   const next7DaysBtn = createButton('view-task', 'Next 7 Days');
   next7Days.appendChild(next7DaysBtn);
   sidebarList.appendChild(next7Days);
-  next7DaysBtn.addEventListener('click', () => console.log('hi'))
 
   const allTask = document.createElement('li');
   const allTaskBtn = createButton('view-task', 'All tasks');
   allTask.appendChild(allTaskBtn);
   sidebarList.appendChild(allTask);
-  allTaskBtn.addEventListener('click', () => console.log('hi'))
 
   return sidebar;
 }
@@ -81,7 +83,7 @@ function addTask() {
 
 function createButton(name, dataKey) {
   const button = createWrapperWithClass('button', name)
-  button.setAttribute('data-key', dataKey.toLowerCase());
+  button.setAttribute('data-key', dataKey.split(' ').join('-'))
   button.setAttribute('type', 'button');
   button.textContent = dataKey;
 

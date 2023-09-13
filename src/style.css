@@ -82,11 +82,15 @@ body {
 }
 /* homepage */
 .home-container {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto 1fr;
+  display: flex;
+  flex-direction: column;
   background-color: var(--light-color-base);
   min-height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex: 1;
 }
 
 button {
@@ -181,6 +185,7 @@ button {
 }
 
 .main-content {
+  flex: 1;
   position: relative;
   padding: clamp(1.5rem, 2.5rem, 3vw);
 }
