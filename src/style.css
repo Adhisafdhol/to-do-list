@@ -61,6 +61,7 @@
   --light-color-base: #e8e9ef;
   --light-color-1: #cccdcf;
   --light-color-2: #c6af99;
+  --grey: #b0b0b0;
   --dark-color-1: #1f1d20;
   --dark-color-2: #474548;
   --accent-color-1: #594023;
@@ -95,7 +96,7 @@ button {
   grid-column: 1/3;
   display: flex;
   align-items: center;
-  background-color: var(--accent-color-1);
+  background-color: var(--dark-color-1);
   padding: clamp(0.75rem, 1.25rem, 2.5vh);
 }
 
@@ -159,21 +160,23 @@ button {
 }
 
 .sidebar > ul button {
+  width: 100%;
+  text-align: left;
   background-color: inherit;
   color: inherit;
   border: none;
-}
-
-.sidebar > ul >li:hover {
-  color: var(--light-color-1);
 }
 
 .sidebar > ul > li {
   padding: var(--small-padding);
 }
 
+.sidebar > ul > li.selected {
+  background-color: var(--grey);
+}
+
 .sidebar > ul > li:hover {
-  background-color: var(--dark-color-1);
+  background-color: var(--grey);
   border-radius: 3px;
 }
 
@@ -199,8 +202,8 @@ button {
 }
 
 .main-content button[data-key="add-task"]:hover {
-  border-color: var(--light-color-2);
-  box-shadow: inset 0 -5px var(--light-color-2);
+  border-color: var(--accent-color-3);
+  box-shadow: inset 0 -5px var(--accent-color-2);
 }
 
 button[data-key="add-task"]::before {
@@ -233,4 +236,8 @@ button[data-key="add-task"]::before {
   grid-auto-rows: min-content;
   gap: var(--small-gap);
   height: 100%;
+}
+
+.hidden {
+  display: none;
 }
