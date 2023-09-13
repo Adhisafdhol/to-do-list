@@ -2,6 +2,7 @@ import { add } from "date-fns";
 import { printAllTasks, createWrapperWithClass} from "../print-tasks";
 import { toDoList } from "../todo";
 import { viewTaskMode } from "../controller";
+import { createPopUpModal } from "../modal-form";
 
 function home () {
   const homeContainer = document.createElement('div');
@@ -14,6 +15,7 @@ function home () {
   homeContainer.appendChild(content);
   content.appendChild(sidebar());
   content.appendChild(mainContent());
+  content.appendChild(createPopUpModal());
 
   return homeContainer;
 }
