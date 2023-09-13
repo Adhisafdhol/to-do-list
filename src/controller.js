@@ -22,4 +22,8 @@ function toggleView(target) {
   target.classList.toggle('hidden');
 }
 
-export {viewTaskMode, selectBtn, toggleView};
+function showDialog(target) {
+  target.showModal();
+}
+
+export {viewTaskMode, selectBtn, toggleView, showDialog};
