@@ -58,16 +58,16 @@
 }
 
 :root {
-  --light-color-base: #e8e9ef;
-  --light-color-1: #cccdcf;
-  --light-color-2: #c6af99;
+  --light-color-base: #edece8;
+  --light-color-1: #e7e7e7;
+  --light-color-2: #d3d4d7;
   --grey: #b0b0b0;
-  --dark-color-1: #1f1d20;
+  --dark-color-1: #04060d;
   --dark-color-2: #474548;
-  --accent-color-1: #594023;
-  --accent-color-2: #2f3924;
-  --accent-color-3: #191d13;
-  --header-icons-width: clamp(0.5rem, 1.25rem, 3vw);
+  --accent-color-1: #3e8de3;
+  --accent-color-2: #143aa2;
+  --accent-color-3: #a2143a;
+  --header-icons-width: clamp(0.75rem, 1.5rem, 3vw);
   --small-padding: clamp(0.15rem, 0.25rem, 0.35vw) clamp(0.25rem, 0.5rem, 0.5vw);
   --small-gap: clamp(0.15rem, 0.25rem, 0.35vw);
   --sidebar-width: clamp(150px, 200px, 15vw);
@@ -100,11 +100,15 @@ button {
   grid-column: 1/3;
   display: flex;
   align-items: center;
-  background-color: var(--dark-color-1);
+  background-color: var(--accent-color-2);
   padding: clamp(0.75rem, 1.25rem, 2.5vh);
 }
 
 .sidebar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(0.75rem, 1rem, 1.25vw);
   position: relative;
   width: var(--header-icons-width);
   height: var(--header-icons-width);
@@ -116,19 +120,21 @@ button {
 
 .sidebar-btn::before {
   position: absolute;
-  top: 0;
-  left: 0;
   width: var(--header-icons-width);
   height: var(--header-icons-width);
   content: "";
-  background-image: url(./img/icons/three-horizontal-lines-icon.svg);
+  background-image: url(./img/icons/menu_FILL0_wght400_GRAD0_opsz48.svg);
   background-size: 100% 100%;
+}
+
+.sidebar-btn:hover {
+ background-color: var(--accent-color-1);
 }
 
 .main-header > h1 {
   font-size: clamp(1.25rem, 1.75rem, 4vw);
   margin: 0;
-  color: var(--light-color-1);
+  color: var(--light-color-base);
 }
 
 .main-header > span {
@@ -139,8 +145,8 @@ button {
   content: '';
   width: var(--header-icons-width);
   height: var(--header-icons-width);
-  margin-left: max(0.5rem, 0.75vw);
-  background-image: url(./img/icons/check-mark-box-line-icon.svg);
+  margin-left: clamp(0.25rem, 0.5rem, 0.5vw);
+  background-image: url(./img/icons/check_box_FILL0_wght400_GRAD0_opsz48.svg);
   background-size: 100% 100%;
 }
 
@@ -180,10 +186,15 @@ button {
 }
 
 .sidebar > ul > li:hover {
-  background-color: var(--grey);
+  background-color: var(--light-color-2);
   border-radius: 3px;
 }
 
+/* sidebar project style */
+.project {
+  font-weight: 700;
+}
+/* Main content style */
 .main-content {
   flex: 1;
   position: relative;
@@ -198,8 +209,8 @@ button {
   gap: clamp(0.25rem, 0.5rem, 0.5vw);
   width: var(--sidebar-width);
   position: absolute;
-  border: 1px solid var(--accent-color-3);
-  color: var(--accent-color-3);
+  border: 1px solid var(--dark-color-1);
+  color: var(--dark-color-1);
   border-radius: 3px;
   padding: var(--small-padding);
   bottom: 0;
@@ -208,7 +219,6 @@ button {
 
 .main-content button[data-key="add-task"]:hover {
   border-color: var(--accent-color-3);
-  box-shadow: inset 0 -5px var(--accent-color-2);
 }
 
 button[data-key="add-task"]::before {
@@ -220,29 +230,183 @@ button[data-key="add-task"]::before {
 }
 
 .task {
+  width: max(50vw, 300px);
   display: flex;
   flex-direction: column;
   gap: var(--small-gap);
-  background-color: var(--light-color-1);
   font-size: clamp(0.81rem, 1rem, 1vw);
-  padding: clamp(0.5rem, 1rem, 2vw);
+  border-bottom: 1px solid var(--light-color-2);
   height: min-content;
 }
 
 .task > [data-info="title"] {
   font-size: clamp(0.9rem, 1.1rem, 1.1vw);
   color: var(--dark-color-1);
-  font-weight: 500;
 }
 
 .task-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-auto-rows: min-content;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   gap: var(--small-gap);
   height: 100%;
 }
 
+.task [data-info="date"]{
+  font-size: clamp(0.7rem, 0.75rem, 1vw);
+  padding-left: 1.25em;
+  display: flex;
+  position: relative;
+  color: var(--accent-color-1);
+}
+
+.task [data-info="date"]::before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  width: 1em;
+  height: 1em;
+  background-image: url(./img/icons/event_note_FILL0_wght400_GRAD0_opsz48.svg);
+  background-size: 100% 100%;
+}
+
+/* Form pop up modal style */
+.modal {
+  border-radius: 3px;
+  background-color: var(--light-color-base);
+  border: none;
+  padding: 0;
+  box-shadow: 0 0 30px var(--dark-color-2);
+}
+
+.modal > form {
+  display: flex;
+  flex-direction: column;
+  width: clamp(250px, 500px, 50vw);
+  font-size: clamp(0.9rem, 1.1rem, 1.1vw);
+}
+
+.main-input {
+  display: flex;
+  flex-direction: column;
+  gap: var(--small-gap);
+  padding: clamp(0.75rem, 1.25rem, 2vw);
+}
+
+.title,
+.description {
+  position: relative;
+  display: flex;
+}
+
+.title input {
+  height: clamp(1rem, 1.5rem, 1.45vw);
+  font-size: clamp(1rem, 1.5rem, 1.45vw);
+  padding: var(--small-padding);
+  border: none;
+  width: 100%;
+}
+
+.title input:focus {
+  outline: none;
+}
+
+.title > label {
+  font-size: clamp(1rem, 1.5rem, 1.45vw);
+}
+
+.title > label,
+.description > label {
+  padding: var(--small-padding);
+  z-index: 2;
+  position: absolute;
+  color: var(--dark-color-2);
+}
+
+input,
+textarea {
+  width: 100%;
+  background-color: inherit;
+}
+
+textarea {
+  padding: var(--small-padding);
+  resize: none;
+  border: none;
+  min-height: calc(100px + 3vw);
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.date,
+.priority {
+  display: flex;
+  gap: var(--small-gap);
+  color: var(--dark-color-2);
+}
+
+.date label,
+.priority label {
+  width: clamp(50px, 70px, 15vw);
+}
+
+.date input:focus-visible,
+.priority :focus-visible {
+  outline: 1px solid var(--accent-color-1);
+}
+
+.date input,
+.priority select {
+  flex: 0;
+  border-radius: 2px;
+  font-size: 0.8em;
+  border: var(--dark-color-2) 1px solid;
+  color: inherit;
+}
+
+.priority select {
+  background-color: inherit;
+}
+
+/* button container style */
+.btn-container {
+  padding: clamp(0.75rem, 1rem, 1.5vw);
+  display: flex;
+  justify-content: end;
+  gap: clamp(0.5rem, 0.75rem, 1vw);
+  border-top: 1px solid var(--accent-color-1);
+}
+
+.btn-container > button {
+  border-radius: 3px;
+  font-weight: 500;
+  border: none;
+  padding: clamp(0.25rem, 0.5rem, 0.75vw);
+  color: var(--light-color-base);
+}
+
+.btn-container .cancel {
+  background-color: var(--accent-color-3);
+}
+
+.btn-container .submit{
+  background-color: var(--accent-color-2);
+}
+
+/* Hide elements */
 .hidden {
   display: none;
+}
+
+.visually-hidden {
+  border-width: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }

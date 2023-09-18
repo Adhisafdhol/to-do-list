@@ -1,9 +1,8 @@
 const taskDom = (obj) => {
   const titleDom = taskPropertyDom(obj, 'title');
   const dateDom = taskPropertyDom(obj, 'date');
-  const priorityDom = taskPropertyDom(obj, 'priority');
 
-  return [titleDom, dateDom, priorityDom];
+  return [titleDom, dateDom];
 }
 
 function createTaskDom(obj) {

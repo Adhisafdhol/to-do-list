@@ -59,6 +59,10 @@ function sidebar() {
   allTask.appendChild(allTaskBtn);
   sidebarList.appendChild(allTask);
 
+  const projects = createWrapperWithClass('div', 'project');
+  projects.textContent = 'Projects';
+  sidebar.appendChild(projects);
+
   return sidebar;
 }
 

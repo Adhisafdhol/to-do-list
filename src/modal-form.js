@@ -1,11 +1,17 @@
 import { createWrapperWithClass } from "./print-tasks";
+import { hideLabel } from "./hide-elements";
 
 function createModal() {
   return createWrapperWithClass('dialog', 'modal');
 }
 
-function createForm() {
-  return document.createElement('form');
+function createForm(id, action, method) {
+  const form = document.createElement('form');
+  form.setAttribute('id', id);
+  form.action = action;
+  form.method = method;
+
+  return form;
 }
 
 //Create input elements
@@ -20,7 +26,7 @@ function createInputEl(className, type, id, name, text, placeholder) {
 
 function createRequiredInputEl(className, type, id, name, text, placeholder) {
   const container = createInputEl(className, type, id, name, text, placeholder);
-  container.replaceChild(createRequiredInput(type, id, name, text, placeholder), container.querySelector('input'));
+  container.replaceChild(createRequiredInput(type, id, name, placeholder), container.querySelector('input'));
  
   return container;
 }
@@ -50,27 +56,98 @@ function createRequiredInput(type, id, name, placeholder) {
   return container;
 }
 
+function createButton(name, text) {
+  const btn = createWrapperWithClass('button', name);
+  btn.textContent = text;
+
+  return btn;
+}
+
+function createCloseBtn(name, text) {
+  const btn = createButton(name, text);
+  btn.formNoValidate = true;
+
+  return btn;
+}
 //create text area
 
-function createTextArea(name) {
+function createTextArea(id, className, name, forVal, text) {
+  const container = createWrapperWithClass('div', className,)
+  container.appendChild(createLabel(forVal, text));
   const textArea = document.createElement('textarea');
+  textArea.id = id;
+  container.appendChild(textArea);
+
   textArea.name = name
 
-  return textArea;
+  return container;
+}
+
+function createSelect(id, name) {
+  const select = document.createElement('select');
+  select.id = id;
+  select.name = name;
+
+  return select;
+}
+
+function createOption(value, text) {
+  const option = document.createElement('option');
+  option.value = value;
+  option.textContent = text;
+
+  return option;
 }
 
 //create a popup modal dialog
 function createPopUpModal() {
   const container = createModal();
-  const form = createForm();
+  const form = createForm('task-form', '*', 'dialog');
   container.appendChild(form);
-  const titleInput = createRequiredInputEl('title', 'text', 'title', 'title', 'Title', ' ');
-  const descriptionInput = createTextArea('description');
-  const dateInput = createRequiredInputEl('date', 'date', 'date', 'date', 'Date', ' ');
-  form.appendChild(titleInput);
-  form.appendChild(descriptionInput);
-  form.appendChild(dateInput);
 
+  const formEl = createWrapperWithClass('div', 'main-input');
+  form.appendChild(formEl);
+  //Title input element
+  const titleInput = createRequiredInputEl('title', 'text', 'title', 'title', 'Task name', ' ');
+  console.log(titleInput.querySelector('input').value);
+  titleInput.addEventListener('input', hideLabel.bind(titleInput, titleInput.querySelector('label'), 'input'));
+  //description input element
+  const descriptionInput = createTextArea('description', 'description', 'description', 'description', 'description');
+  descriptionInput.addEventListener('input', hideLabel.bind(descriptionInput, descriptionInput.querySelector('label'), 'textarea'));
+  descriptionInput.setAttribute('row', '10');
+  descriptionInput.placeholder = ' ';
+
+  const dateInput = createRequiredInputEl('date', 'date', 'date', 'date', 'Due-date', ' ');
+  console.log(dateInput.querySelector('input').value);
+  dateInput.addEventListener('input', () => console.log(dateInput.querySelector('input').value));
+
+  //create select
+  const selectContainer = createWrapperWithClass('div', 'priority');
+  const selectLabel = createLabel('priority', 'Priority');
+  const select = createSelect('priority', 'priority');
+  console.log(select.value);
+  const selectOpt1 = createOption('low', 'Low');
+  const selectOpt2 = createOption('medium', 'Medium');
+  const selectOpt3 = createOption('high', 'High');
+  select.appendChild(selectOpt1);
+  select.appendChild(selectOpt2);
+  select.appendChild(selectOpt3);
+  selectContainer.appendChild(selectLabel);
+  selectContainer.appendChild(select);
+
+  //create button 
+  const btnContainer = createWrapperWithClass('div', 'btn-container')
+  const closeBtn = createCloseBtn('cancel', 'Cancel');
+  const submitBtn = createButton('submit', 'Add task');
+
+  formEl.appendChild(titleInput);
+  formEl.appendChild(descriptionInput);
+  formEl.appendChild(dateInput);
+  formEl.appendChild(selectContainer);
+  form.appendChild(btnContainer);
+  btnContainer.appendChild(closeBtn);
+  btnContainer.appendChild(submitBtn);
+  
   return container;
 }
 

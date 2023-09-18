@@ -8,7 +8,7 @@
     "watch": "webpack --watch",
     "start": "webpack serve --open",
     "build": "webpack",
-    "page":"git subtree push --prefix dist origin gh-pages"
+    "page": "git subtree push --prefix dist origin gh-pages"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "date-fns": "^2.29.3",
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "pubsub-js": "^1.9.4"
   }
 }
