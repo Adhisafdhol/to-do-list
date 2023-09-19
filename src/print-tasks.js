@@ -1,8 +1,16 @@
 const taskDom = (obj) => {
+  const headerWrapper = createWrapperWithClass('div', 'task-header');
+  const btn = createWrapperWithClass('button', 'done');
   const titleDom = taskPropertyDom(obj, 'title');
+  const editBtn = createWrapperWithClass('button', 'edit');
+  const deleteBtn = createWrapperWithClass('button', 'delete');
+  headerWrapper.appendChild(btn);
+  headerWrapper.appendChild(titleDom);
+  headerWrapper.appendChild(editBtn);
+  headerWrapper.appendChild(deleteBtn);
   const dateDom = taskPropertyDom(obj, 'date');
 
-  return [titleDom, dateDom];
+  return [headerWrapper, dateDom];
 }
 
 function createTaskDom(obj) {

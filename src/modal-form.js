@@ -117,7 +117,7 @@ function createPopUpModal() {
   descriptionInput.setAttribute('row', '10');
   descriptionInput.placeholder = ' ';
 
-  const dateInput = createRequiredInputEl('date', 'date', 'date', 'date', 'Due-date', ' ');
+  const dateInput = createInputEl('date', 'date', 'date', 'date', 'Due-date', ' ');
   console.log(dateInput.querySelector('input').value);
   dateInput.addEventListener('input', () => console.log(dateInput.querySelector('input').value));
 
