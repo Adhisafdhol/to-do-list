@@ -1,7 +1,5 @@
 function viewTaskMode(e) {
   const viewMode = e.target.getAttribute('data-key');
-
-  console.log(viewMode);
 }
 
 function selectBtn(e) {
@@ -26,4 +24,8 @@ function showDialog(target) {
   target.showModal();
 }
 
-export {viewTaskMode, selectBtn, toggleView, showDialog};
+function resetForm(target) {
+  target.reset()
+}
+
+export {viewTaskMode, selectBtn, toggleView, showDialog, resetForm};

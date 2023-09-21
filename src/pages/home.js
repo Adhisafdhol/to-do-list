@@ -3,6 +3,7 @@ import { printAllTasks, createWrapperWithClass} from "../print-tasks";
 import { toDoList } from "../todo";
 import { viewTaskMode } from "../controller";
 import { createPopUpModal } from "../modal-form";
+import { getAllTasks } from "../todo";
 
 function home () {
   const homeContainer = document.createElement('div');
@@ -56,11 +57,18 @@ function sidebar() {
 
   const allTask = document.createElement('li');
   const allTaskBtn = createButton('view-task', 'All tasks');
+  allTaskBtn.classList.add('on-view');
   allTask.appendChild(allTaskBtn);
   sidebarList.appendChild(allTask);
 
   const projects = createWrapperWithClass('div', 'project');
-  projects.textContent = 'Projects';
+  const projectHeaderContainer = createWrapperWithClass('div', 'project-header');
+  const viewProjectsBtn = createWrapperWithClass('button', 'view-projects');
+  projectHeaderContainer.appendChild(viewProjectsBtn);
+  const projectHeader = document.createElement('div');
+  projectHeader.textContent = 'Projects';
+  projectHeaderContainer.appendChild(projectHeader);
+  projects.appendChild(projectHeaderContainer);
   sidebar.appendChild(projects);
 
   return sidebar;
@@ -69,7 +77,7 @@ function sidebar() {
 function mainContent() {
   const mainContent = document.createElement('main');
   mainContent.classList.add('main-content');
-  mainContent.appendChild(printAllTasks(toDoList));
+  mainContent.appendChild(printAllTasks());
   mainContent.appendChild(addTask());
 
   return mainContent;

@@ -15,8 +15,13 @@ function hideLabel(target, targetInput) {
   input.value.length === 0?removeClassName(target, 'visually-hidden'):addClassName(target, 'visually-hidden');
 }
 
-function resetValue(target) {
-  target.value = '';
+function resetFormLabel(form) {
+  const labels = form.querySelectorAll('label');
+  labels.forEach(label => resetLabel(label));
 }
 
-export {hideLabel};
+function resetLabel(target) {
+  target.classList.remove('visually-hidden');
+}
+
+export {hideLabel, resetFormLabel};

@@ -109,7 +109,6 @@ function createPopUpModal() {
   form.appendChild(formEl);
   //Title input element
   const titleInput = createRequiredInputEl('title', 'text', 'title', 'title', 'Task name', ' ');
-  console.log(titleInput.querySelector('input').value);
   titleInput.addEventListener('input', hideLabel.bind(titleInput, titleInput.querySelector('label'), 'input'));
   //description input element
   const descriptionInput = createTextArea('description', 'description', 'description', 'description', 'description');
@@ -118,14 +117,11 @@ function createPopUpModal() {
   descriptionInput.placeholder = ' ';
 
   const dateInput = createInputEl('date', 'date', 'date', 'date', 'Due-date', ' ');
-  console.log(dateInput.querySelector('input').value);
-  dateInput.addEventListener('input', () => console.log(dateInput.querySelector('input').value));
 
   //create select
   const selectContainer = createWrapperWithClass('div', 'priority');
   const selectLabel = createLabel('priority', 'Priority');
   const select = createSelect('priority', 'priority');
-  console.log(select.value);
   const selectOpt1 = createOption('low', 'Low');
   const selectOpt2 = createOption('medium', 'Medium');
   const selectOpt3 = createOption('high', 'High');

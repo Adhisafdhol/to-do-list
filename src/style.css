@@ -62,18 +62,28 @@
   --light-color-1: #e7e7e7;
   --light-color-2: #d3d4d7;
   --grey: #b0b0b0;
+  --dark-grey: #636363;
   --dark-color-1: #04060d;
   --dark-color-2: #474548;
-  --accent-color-1: #3e8de3;
-  --accent-color-2: #143aa2;
-  --accent-color-3: #a2143a;
-  --small-font: clamp(0.75rem, 0.9rem, 1vw);
-  --medium-font: clamp(1rem, 1.1rem, 1.1vw);
+  --dark-color-3: #4d4d4d;
+  --accent-color-1: #1d3853;
+  --accent-color-2: #23c686;
+  --accent-color-3: #fc9d45;
+  --accent-color-4: #9fcdfd;
+  --low-color: #3AA214;
+  --mid-color: #E3943E;
+  --high-color: #A2143A;
+  --small-font: clamp(0.8rem, 0.85rem, 0.9vw);
+  --small-medium-font: clamp(0.9rem, 1rem, 1.05vw);
+  --medium-font: clamp(0.95rem, 1.05rem, 1.1vw);
+  --medium-big-font: clamp(1.05rem, 1.25rem, 1.25vw);
+  --big-medium-font: clamp(1.15rem, 1.5rem, 1.45vw);
   --big-font: clamp(1.5rem, 1.75rem, 4vw);
   --header-icons-width: clamp(1.25rem, 1.5rem, 3vw);
   --small-padding: clamp(0.15rem, 0.25rem, 0.35vw) clamp(0.25rem, 0.5rem, 0.5vw);
   --medium-padding: 0.5em;
   --small-gap: clamp(0.15rem, 0.25rem, 0.35vw);
+  --medium-gap: clamp(0.3rem, 0.5rem, 0.7vw);
   --sidebar-width: clamp(150px, 200px, 15vw);
 }
 
@@ -134,13 +144,13 @@ button {
 }
 
 .sidebar-btn:hover {
- background-color: var(--accent-color-1);
+ background-color: var(--accent-color-4);
 }
 
 .main-header > h1 {
   font-size: var(--big-font);
   margin: 0;
-  color: var(--light-color-base);
+  color: var(--accent-color-1);
 }
 
 .main-header > span {
@@ -160,9 +170,9 @@ button {
   display: flex;
   flex-direction: column;
   padding: clamp(0.5rem, 1rem, 2vw);
-  gap: 0.5rem;
+  gap: clamp(1rem, 1.25rem, 1.5vw);
   color: var(--dark-color-2);
-  font-size: clamp(1rem, 1.5rem, 1.45vw);
+  font-size: var(--big-medium-font);
   width: var(--sidebar-width);
   background-color: var(--light-color-1);
 }
@@ -176,14 +186,12 @@ button {
 }
 
 .sidebar > ul button {
+  padding: var(--small-padding);
   width: 100%;
+  font-size: var(--medium-big-font);
   text-align: left;
   color: inherit;
   border: none;
-}
-
-.sidebar > ul > li {
-  padding: var(--small-padding);
 }
 
 .sidebar > ul > li.selected {
@@ -195,9 +203,41 @@ button {
   border-radius: 3px;
 }
 
+.sidebar button.on-view {
+  font-weight: 500;
+  background-color: var(--light-color-2);
+  color: var(--dark-color-2);
+  border-radius: 3px;
+}
 /* sidebar project style */
 .project {
+  padding: var(--small-padding);
   font-weight: 700;
+}
+
+.project-header {
+  display: flex;
+  align-items: center;
+  gap: var(--small-gap);
+}
+
+.view-projects {
+  border: none;
+  width: var(--big-font);
+  height: var(--big-font);
+  position: relative;
+}
+
+.view-projects::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--big-font);
+  height: var(--big-font);
+  content: "";
+  background-image: url(./img/icons/expand_more_FILL0_wght400_GRAD0_opsz48.svg);
+  transform: rotate(-90deg);
+  background-size: 100% 100%;
 }
 /* Main content style */
 .main-content {
@@ -222,7 +262,8 @@ button {
 }
 
 .main-content button[data-key="add-task"]:hover {
-  border-color: var(--accent-color-3);
+  border-color: var(--accent-color-2);
+  box-shadow: 3px 3px var(--accent-color-3);
 }
 
 button[data-key="add-task"]::before {
@@ -233,11 +274,15 @@ button[data-key="add-task"]::before {
   background-size: 100% 100%;
 }
 
+.task-list > :first-child {
+  border-top: 1px solid var(--light-color-2);
+}
+
 .task {
+  padding: var(--medium-gap) 0;
   width: max(50vw, 300px);
   display: flex;
   flex-direction: column;
-  gap: var(--small-gap);
   font-size: clamp(0.81rem, 1rem, 1vw);
   border-bottom: 1px solid var(--light-color-2);
   height: min-content;
@@ -256,11 +301,6 @@ button.done {
   border-radius: 50%;
   background-color: var(--light-color-1);
   border: var(--grey) 1px solid;
-}
-
-button.done:hover::before {
-  content: "✓";
-  color: var(--dark-color-1);
 }
 
 button.edit,
@@ -287,6 +327,11 @@ button.done:hover::before  {
   background-size: 100% 100%;  
 }
 
+button.done:hover::before {
+  content: "✓";
+  color: var(--dark-color-1);
+}
+
 button.edit::before {
   background-image: url(./img/icons/border_color_FILL0_wght400_GRAD0_opsz48\ \(1\).svg);
 }
@@ -297,7 +342,9 @@ button.delete::before {
 
 .task  [data-info="title"] {
   font-size: var(--medium-font);
-  color: var(--dark-color-1);
+  padding-left: var(--small-gap);
+  color: var(--dark-color-3);
+  font-weight: 500;
 }
 
 .task-list {
@@ -306,6 +353,13 @@ button.delete::before {
   flex-direction: column;
   gap: var(--small-gap);
   height: 100%;
+}
+
+.task [data-info="description"] {
+  font-size: var(--small-medium-font);
+  padding-left: calc(var(--medium-font) + calc(var(--small-gap) * 2));
+  color: var(--dark-grey);
+  margin: var(--small-gap);
 }
 
 .task [data-info="date"]{
@@ -332,7 +386,8 @@ button.delete::before {
   background-color: var(--light-color-base);
   border: none;
   padding: 0;
-  box-shadow: 0 0 30px var(--dark-color-2);
+  border: var(--accent-color-2) 1px solid;
+  box-shadow: 3px 3px var(--accent-color-3);
 }
 
 .modal > form {
@@ -426,6 +481,9 @@ textarea:focus {
   background-color: inherit;
 }
 
+option {
+  background-color: var(--light-color-1);
+}
 /* button container style */
 .btn-container {
   padding: clamp(0.75rem, 1rem, 1.5vw);
@@ -440,7 +498,7 @@ textarea:focus {
   font-weight: 500;
   border: none;
   padding: clamp(0.25rem, 0.5rem, 0.75vw);
-  color: var(--light-color-base);
+  color: var(--accent-color-1);
 }
 
 .btn-container .cancel {
