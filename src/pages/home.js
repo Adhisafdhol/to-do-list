@@ -68,6 +68,8 @@ function sidebar() {
   const projectHeader = document.createElement('div');
   projectHeader.textContent = 'Projects';
   projectHeaderContainer.appendChild(projectHeader);
+  const addProjectsBtn = createWrapperWithClass('div', 'add-project');
+  projectHeaderContainer.appendChild(addProjectsBtn);
   projects.appendChild(projectHeaderContainer);
   sidebar.appendChild(projects);
 

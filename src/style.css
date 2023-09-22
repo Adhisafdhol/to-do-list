@@ -71,18 +71,20 @@
   --accent-color-2: #23c686;
   --accent-color-3: #fc9d45;
   --accent-color-4: #9fcdfd;
+  --accent-color-5: #c5d893;
   --low-color: #3AA214;
   --mid-color: #E3943E;
   --high-color: #A2143A;
   --small-font: clamp(0.85rem, 0.9rem, 0.95vw);
   --small-medium-font: clamp(0.95rem, 1.025rem, 1.05vw);
   --medium-font: clamp(1rem, 1.05rem, 1.1vw);
-  --medium-big-font: clamp(1.1rem, 1.3rem, 1.3vw);
-  --big-medium-font: clamp(1.15rem, 1.5rem, 1.45vw);
-  --big-font: clamp(1.5rem, 1.75rem, 4vw);
+  --medium-big-font: clamp(1.15rem, 1.3rem, 1.3vw);
+  --big-medium-font: clamp(1.25rem, 1.5rem, 1.45vw);
+  --big-font: clamp(1.75rem, 2rem, 5vw);
   --header-icons-width: clamp(1.25rem, 1.5rem, 3vw);
-  --small-padding: clamp(0.15rem, 0.25rem, 0.35vw) clamp(0.25rem, 0.5rem, 0.5vw);
-  --medium-padding: 0.5em;
+  --small-padding: clamp(0.2rem, 0.25rem, 0.35vw) clamp(0.4rem, 0.5rem, 0.5vw);
+  --medium-padding: 0.75em;
+  --big-padding: clamp(1.5rem, 2.5rem, 3vw);
   --small-gap: clamp(0.2rem, 0.25rem, 0.35vw);
   --medium-gap: clamp(0.4rem, 0.5rem, 0.7vw);
   --sidebar-width: clamp(225px, 250px, 15vw);
@@ -104,6 +106,7 @@ body {
 }
 
 .content {
+  position: relative;
   display: flex;
   flex: 1;
 }
@@ -127,8 +130,8 @@ button {
   justify-content: center;
   padding: clamp(0.75rem, 1rem, 1.25vw);
   position: relative;
-  width: var(--header-icons-width);
-  height: var(--header-icons-width);
+  width: var(--big-font);
+  height: var(--big-font);
   background-color: transparent;
   outline: none;
   border: none;
@@ -137,14 +140,15 @@ button {
 
 .sidebar-btn::before {
   position: absolute;
-  width: var(--header-icons-width);
-  height: var(--header-icons-width);
+  width: var(--big-font);
+  height: var(--big-font);
   content: "";
   background-image: url(./img/icons/menu_FILL0_wght400_GRAD0_opsz48.svg);
   background-size: 100% 100%;
 }
 
 .sidebar-btn:hover {
+  border-radius: 3px;
  background-color: var(--accent-color-4);
 }
 
@@ -160,8 +164,8 @@ button {
 
 .main-header > span::after {
   content: '';
-  width: var(--header-icons-width);
-  height: var(--header-icons-width);
+  width: var(--big-font);
+  height: var(--big-font);
   margin-left: clamp(0.25rem, 0.5rem, 0.5vw);
   background-image: url(./img/icons/check_box_FILL0_wght400_GRAD0_opsz48.svg);
   background-size: 100% 100%;
@@ -169,8 +173,11 @@ button {
 
 .sidebar {
   display: flex;
+  height: calc(100% - var(--big-font));
+  z-index: 2;
+  position: absolute;
   flex-direction: column;
-  padding: clamp(0.5rem, 1rem, 2vw);
+  padding: var(--medium-padding);
   gap: clamp(1rem, 1.25rem, 1.5vw);
   color: var(--dark-color-2);
   font-size: var(--big-medium-font);
@@ -206,9 +213,13 @@ button {
 
 .sidebar button.on-view {
   font-weight: 500;
-  background-color: var(--light-color-2);
+  background-color: var(--accent-color-2);
   color: var(--dark-color-2);
   border-radius: 3px;
+}
+
+.sidebar button.on-view:hover {
+  background-color: var(--accent-color-3);
 }
 /* sidebar project style */
 .project {
@@ -222,37 +233,53 @@ button {
   gap: var(--small-gap);
 }
 
-.view-projects {
+.view-projects,
+.add-project {
   border: none;
   width: var(--big-font);
   height: var(--big-font);
   position: relative;
 }
 
-.view-projects::before {
+.add-project {
+  margin-left: auto;
+}
+
+.view-projects::before,
+.add-project::before  {
   position: absolute;
-  top: 0;
-  left: 0;
   width: var(--big-font);
   height: var(--big-font);
   content: "";
+  background-size: 100% 100%;
+  top: 0;
+  left: 0;
+} 
+
+.view-projects::before {
   background-image: url(./img/icons/expand_more_FILL0_wght400_GRAD0_opsz48.svg);
   transform: rotate(-90deg);
-  background-size: 100% 100%;
 }
+
+.add-project::before{
+  background-image: url(./img/icons/add_FILL0_wght400_GRAD0_opsz48.svg);
+}
+
 /* Main content style */
 .main-content {
   flex: 1;
   position: relative;
-  padding: clamp(1.5rem, 2.5rem, 3vw);
+  padding: var(--big-padding);
+  padding-bottom: clamp(4rem, 5rem, 8vw);
+  padding-top: clamp(2.25rem, 2.5rem, 3vw);
 }
 
 .main-content button[data-key="add-task"] {
   display: flex;
   align-items: center;
-  font-size: clamp(0.9rem, 1rem, 1.5vw);
+  font-size: var(--medium-font);
   gap: clamp(0.25rem, 0.5rem, 0.5vw);
-  width: var(--sidebar-width);
+  width: calc(var(--sidebar-width) - 2rem);
   position: absolute;
   border: 1px solid var(--dark-color-1);
   color: var(--dark-color-1);
@@ -269,9 +296,9 @@ button {
 
 button[data-key="add-task"]::before {
   content: " ";
-  background-image: url(./img/icons/plus.svg);
-  width: var(--header-icons-width);
-  height: var(--header-icons-width);
+  background-image: url(./img/icons/add_FILL0_wght400_GRAD0_opsz48.svg);
+  width: var(--medium-font);
+  height: var(--medium-font);
   background-size: 100% 100%;
 }
 
@@ -281,7 +308,7 @@ button[data-key="add-task"]::before {
 
 .task {
   padding: var(--medium-gap) 0;
-  width: max(50vw, 300px);
+  width: min(85vw, calc(500px + 15vw));
   display: flex;
   flex-direction: column;
   font-size: clamp(0.81rem, 1rem, 1vw);
@@ -306,6 +333,8 @@ button.done {
 
 button.edit,
 button.delete {
+  width: var(--medium-font);
+  height: var(--medium-font);
   position: relative;
   border: none;
   display: flex;
@@ -315,6 +344,14 @@ button.edit {
   margin-left: auto;
   margin-right: var(--small-gap);
 }
+
+button.edit:hover,
+button.delete:hover {
+  background-color: var(--light-color-2);
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px var(--light-color-2);
+}
+
 
 button.edit::before,
 button.delete::before,
@@ -498,7 +535,7 @@ option {
   font-weight: 500;
   border: none;
   padding: clamp(0.25rem, 0.5rem, 0.75vw);
-  color: var(--accent-color-1);
+  color: var(--dark-color-3);
 }
 
 .btn-container .cancel {
@@ -526,3 +563,8 @@ option {
 }
 
 /*Media query*/
+@media only screen and (min-width: 481px) {
+  .main-content button[data-key="add-task"] {
+    margin-left: calc(var(--sidebar-width) + var(--medium-padding));
+  }
+}
