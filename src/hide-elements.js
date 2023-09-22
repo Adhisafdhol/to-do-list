@@ -11,8 +11,7 @@ function removeClassName(target, name) {
 }
 
 function hideLabel(target, targetInput) {
-  const input = this.querySelector(targetInput);
-  input.value.length === 0?removeClassName(target, 'visually-hidden'):addClassName(target, 'visually-hidden');
+  targetInput.value.length === 0?removeClassName(target, 'visually-hidden'):addClassName(target, 'visually-hidden');
 }
 
 function resetFormLabel(form) {

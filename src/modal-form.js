@@ -109,10 +109,10 @@ function createPopUpModal() {
   form.appendChild(formEl);
   //Title input element
   const titleInput = createRequiredInputEl('title', 'text', 'title', 'title', 'Task name', ' ');
-  titleInput.addEventListener('input', hideLabel.bind(titleInput, titleInput.querySelector('label'), 'input'));
+  titleInput.addEventListener('input', hideLabel.bind(titleInput, titleInput.querySelector('label'), titleInput.querySelector('input')));
   //description input element
   const descriptionInput = createTextArea('description', 'description', 'description', 'description', 'description');
-  descriptionInput.addEventListener('input', hideLabel.bind(descriptionInput, descriptionInput.querySelector('label'), 'textarea'));
+  descriptionInput.addEventListener('input', hideLabel.bind(descriptionInput, descriptionInput.querySelector('label'), descriptionInput.querySelector('textarea')));
   descriptionInput.setAttribute('row', '10');
   descriptionInput.placeholder = ' ';
 
@@ -147,4 +147,23 @@ function createPopUpModal() {
   return container;
 }
 
-export {createPopUpModal};
+function createEditPopUpModal() {
+  const modal = createPopUpModal();
+  modal.classList.add('edit-modal');
+  modal.classList.remove('modal');
+  const form = modal.querySelector('form');
+  form.setAttribute('id', 'edit-task-form');
+  form.classList.remove('task-form');
+  form.classList.add('edit-task-form');
+  const cancelBtn = modal.querySelector('.cancel');
+  cancelBtn.classList.add('cancel-edit');
+  cancelBtn.classList.remove('cancel');
+  const editTaskBtn = modal.querySelector('.submit');
+  editTaskBtn.textContent = 'Edit task'
+  editTaskBtn.classList.remove('submit');
+  editTaskBtn.classList.add('submit-edit');
+  
+  return modal;
+}
+
+export {createPopUpModal, createEditPopUpModal};

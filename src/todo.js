@@ -1,4 +1,4 @@
-import { da } from "date-fns/locale";
+import PubSub from "pubsub-js";
 
 const toDoList = [];
 
@@ -30,7 +30,6 @@ function createKeyName(name) {
   const length = localStorage.length;
   for (let i = 0; i < length + 1; i++) {
     let currentKey = `${name}`+`${i}`;
-    console.log(currentKey);
     if (!localStorage.getItem(currentKey)) {
       key = currentKey;
     }
@@ -41,18 +40,39 @@ function createKeyName(name) {
 
 function formValue(target) {
   const form = target.querySelector('form');
-  const title = form.querySelector('input[name="title"]').value;
-  const description = form.querySelector('textarea').value;
-  const date = form.querySelector('input[name="date"]').value;
-  const priority = form.querySelector('select').value;
 
-  if (checkRequiredVal(title)) {
-    storeData(Task(title, description, date, priority), createKeyName('task'));
+  if (checkRequiredVal(getTitle(form))) {
+    storeData(Task(getTitle(form), getDescription(form), getData(form), getPriority(form)), createKeyName('task'));
   }
-
   getAllTasks('task');
 }
 
+function getTitle(target) {
+  return target.querySelector('input[name="title"]').value;
+}
+
+function getDescription(target) {
+  return target.querySelector('textarea').value;
+}
+
+function getDate(target) {
+  return target.querySelector('input[name="date"]').value;
+}
+
+function getPriority(target) {
+  return target.querySelector('select').value;
+}
+
+function formEditVal(target, e) {
+  const key = e.target.getAttribute('data-key');
+  const form = target.querySelector('form');
+
+  if (checkRequiredVal(getTitle(form))) {
+    updateData(Task(getTitle(form), getDescription(form), getDate(target), getPriority(form)), key);
+  }
+
+  PubSub.publish('editSubmitted');
+}
 function checkRequiredVal(val) {
   return val !== '';
 }
@@ -61,6 +81,10 @@ function storeData(data, name) {
   if (!isKeyExist(name)) {
   localStorage.setItem(name, JSON.stringify(data))
   }
+}
+
+function updateData(data, name) {
+  localStorage.setItem(name, JSON.stringify(data))
 }
 
 function  getAllTasks(key) {
@@ -75,4 +99,8 @@ function getData(key) {
   return JSON.parse(localStorage.getItem(`${key}`));
 }
 
-export {Task, toDoList, formValue, getAllTasks, getData};
+function editObject() {
+
+}
+
+export {Task, toDoList, formValue, getAllTasks, getData, formEditVal};

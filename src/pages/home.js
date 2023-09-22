@@ -2,7 +2,7 @@ import { add } from "date-fns";
 import { printAllTasks, createWrapperWithClass} from "../print-tasks";
 import { toDoList } from "../todo";
 import { viewTaskMode } from "../controller";
-import { createPopUpModal } from "../modal-form";
+import { createPopUpModal, createEditPopUpModal } from "../modal-form";
 import { getAllTasks } from "../todo";
 
 function home () {
@@ -17,6 +17,7 @@ function home () {
   content.appendChild(sidebar());
   content.appendChild(mainContent());
   content.appendChild(createPopUpModal());
+  content.appendChild(createEditPopUpModal());
 
   return homeContainer;
 }
@@ -40,6 +41,7 @@ function mainHeader() {
 
 function sidebar() {
   const sidebar = document.createElement('nav');
+  sidebar.classList.add('hidden');
   sidebar.classList.add('sidebar');
 
   const sidebarList = document.createElement('ul');

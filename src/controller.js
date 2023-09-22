@@ -25,7 +25,7 @@ function showDialog(target) {
 }
 
 function resetForm(target) {
-  target.reset()
+  target.reset();
 }
 
 export {viewTaskMode, selectBtn, toggleView, showDialog, resetForm};

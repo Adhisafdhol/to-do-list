@@ -72,9 +72,9 @@
   --accent-color-3: #fc9d45;
   --accent-color-4: #9fcdfd;
   --accent-color-5: #c5d893;
-  --low-color: #3AA214;
-  --mid-color: #E3943E;
-  --high-color: #A2143A;
+  --low-color: #23c686;
+  --medium-color: #ffa600;
+  --high-color: #f5584c;
   --small-font: clamp(0.85rem, 0.9rem, 0.95vw);
   --small-medium-font: clamp(0.95rem, 1.025rem, 1.05vw);
   --medium-font: clamp(1rem, 1.05rem, 1.1vw);
@@ -401,6 +401,7 @@ button.delete::before {
 }
 
 .task [data-info="date"]{
+  width: clamp(30px, 50px, 10vw);
   font-size: var(--small-font);
   padding-left: 1.25em;
   display: flex;
@@ -418,21 +419,55 @@ button.delete::before {
   background-size: 100% 100%;
 }
 
+.task-footer {
+  display: flex;
+  gap: var(--medium-gap);
+}
+
+.task [data-info="priority"] {
+  margin-left: auto;
+  position: relative;
+  height: var(--small-font);
+  width: var(--small-font);
+}
+
+.task [data-info="priority"]::before {
+  position: absolute;
+  content: "";
+  width: var(--small-font);
+  height: var(--small-font);
+  background-size: 100% 100%;
+}
+
+[data-info="priority"].low::before {
+  background-image: url(./img/icons/flag_FILL0_wght400_GRAD0_opsz48.svg);
+}
+
+[data-info="priority"].medium::before {
+  background-image: url(./img/icons/flag_FILL0_wght400_GRAD0_opsz48-mid.svg);
+}
+
+[data-info="priority"].high::before {
+ background-image: url(./img/icons/flag_FILL0_wght400_GRAD0_opsz48-high.svg);
+}
+
 /* Form pop up modal style */
-.modal {
+.modal,
+.edit-modal {
   border-radius: 3px;
   background-color: var(--light-color-base);
   border: none;
   padding: 0;
   border: var(--accent-color-2) 1px solid;
-  box-shadow: 3px 3px var(--accent-color-3);
+  box-shadow: 10px 10px var(--accent-color-1);
 }
 
-.modal > form {
+.modal > form,
+.edit-modal > form {
   display: flex;
   flex-direction: column;
   width: min(85vw, calc(450px + 3vw));
-  font-size: clamp(0.9rem, 1.1rem, 1.1vw);
+  font-size:var(--medium-font);
 }
 
 .main-input {
@@ -450,7 +485,7 @@ button.delete::before {
 
 .title input {
   height: clamp(1rem, 1.5rem, 1.45vw);
-  font-size: clamp(1rem, 1.5rem, 1.45vw);
+  font-size: var(--medium-big-font);
   padding: var(--small-padding);
   border: none;
   width: 100%;
@@ -460,16 +495,19 @@ button.delete::before {
   outline: none;
 }
 
-.title > label {
-  font-size: clamp(1rem, 1.5rem, 1.45vw);
-}
-
 .title > label,
 .description > label {
   padding: var(--small-padding);
   z-index: 2;
   position: absolute;
+  color: var(--dark-color-1);
+}
+
+.title > label, 
+.title input {
   color: var(--dark-color-2);
+  font-size: var(--big-medium-font);
+  font-weight: 500;
 }
 
 input,
@@ -499,6 +537,7 @@ textarea:focus {
 .date label,
 .priority label {
   width: clamp(50px, 70px, 15vw);
+  color: var(--dark-color-1);
 }
 
 .date input:focus-visible,
@@ -511,13 +550,14 @@ textarea:focus {
   flex: 0;
   border-radius: 2px;
   font-size: 0.8em;
-  border: var(--dark-color-2) 1px solid;
-  color: inherit;
+  border: var(--accent-color-1) 1px solid;
+  color: var(--dark-color-1);
 }
 
 .priority select {
   background-color: inherit;
 }
+
 option {
   background-color: var(--light-color-1);
 }
@@ -535,14 +575,16 @@ option {
   font-weight: 500;
   border: none;
   padding: clamp(0.25rem, 0.5rem, 0.75vw);
-  color: var(--dark-color-3);
+  color: var(--accent-color-1);
 }
 
-.btn-container .cancel {
+.btn-container .cancel,
+.btn-container .cancel-edit {
   background-color: var(--light-color-2);
 }
 
-.btn-container .submit{
+.btn-container .submit,
+.btn-container .submit-edit {
   background-color: var(--accent-color-2);
 }
 
