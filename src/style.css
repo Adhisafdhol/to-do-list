@@ -58,11 +58,12 @@
 }
 
 :root {
-  --light-color-base: #edece8;
-  --light-color-1: #e7e7e7;
-  --light-color-2: #d3d4d7;
+  --light-color-base: #fbfcf6;
+  --light-color-1: #f5f7ed;
+  --light-color-2: #e0e2d8;;
   --grey: #b0b0b0;
   --dark-grey: #636363;
+  --grey-accent: #7a9295;
   --dark-color-1: #04060d;
   --dark-color-2: #474548;
   --dark-color-3: #4d4d4d;
@@ -73,18 +74,18 @@
   --low-color: #3AA214;
   --mid-color: #E3943E;
   --high-color: #A2143A;
-  --small-font: clamp(0.8rem, 0.85rem, 0.9vw);
-  --small-medium-font: clamp(0.9rem, 1rem, 1.05vw);
-  --medium-font: clamp(0.95rem, 1.05rem, 1.1vw);
-  --medium-big-font: clamp(1.05rem, 1.25rem, 1.25vw);
+  --small-font: clamp(0.85rem, 0.9rem, 0.95vw);
+  --small-medium-font: clamp(0.95rem, 1.025rem, 1.05vw);
+  --medium-font: clamp(1rem, 1.05rem, 1.1vw);
+  --medium-big-font: clamp(1.1rem, 1.3rem, 1.3vw);
   --big-medium-font: clamp(1.15rem, 1.5rem, 1.45vw);
   --big-font: clamp(1.5rem, 1.75rem, 4vw);
   --header-icons-width: clamp(1.25rem, 1.5rem, 3vw);
   --small-padding: clamp(0.15rem, 0.25rem, 0.35vw) clamp(0.25rem, 0.5rem, 0.5vw);
   --medium-padding: 0.5em;
-  --small-gap: clamp(0.15rem, 0.25rem, 0.35vw);
-  --medium-gap: clamp(0.3rem, 0.5rem, 0.7vw);
-  --sidebar-width: clamp(150px, 200px, 15vw);
+  --small-gap: clamp(0.2rem, 0.25rem, 0.35vw);
+  --medium-gap: clamp(0.4rem, 0.5rem, 0.7vw);
+  --sidebar-width: clamp(225px, 250px, 15vw);
 }
 
 body {
@@ -99,7 +100,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: var(--light-color-base);
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .content {
@@ -393,7 +394,7 @@ button.delete::before {
 .modal > form {
   display: flex;
   flex-direction: column;
-  width: clamp(250px, 500px, 50vw);
+  width: min(85vw, calc(450px + 3vw));
   font-size: clamp(0.9rem, 1.1rem, 1.1vw);
 }
 
@@ -480,7 +481,6 @@ textarea:focus {
 .priority select {
   background-color: inherit;
 }
-
 option {
   background-color: var(--light-color-1);
 }
@@ -490,7 +490,7 @@ option {
   display: flex;
   justify-content: end;
   gap: clamp(0.5rem, 0.75rem, 1vw);
-  border-top: 1px solid var(--accent-color-1);
+  border-top: 1px solid var(--grey-accent);
 }
 
 .btn-container > button {
@@ -502,7 +502,7 @@ option {
 }
 
 .btn-container .cancel {
-  background-color: var(--accent-color-3);
+  background-color: var(--light-color-2);
 }
 
 .btn-container .submit{
@@ -524,3 +524,5 @@ option {
   white-space: nowrap;
   width: 1px;
 }
+
+/*Media query*/
