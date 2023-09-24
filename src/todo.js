@@ -1,24 +1,18 @@
 import PubSub from "pubsub-js";
 
-const toDoList = [];
-
 //constructor function to create a task
-const Task = (title, description, date, priority) => {
+const Task = (title, description, date, priority, complete) => {
   let dateVal = createDate(date);
-  return {title, description, date: dateVal, priority};
+  return {title, description, date: dateVal, priority, complete};
 };
 
-//Put task in the array
-function createTask(title, description, date, priority) {
-  toDoList.push(Task(title, description, date, priority));
-}
-
+//Check if key exist
 function isKeyExist(name) {
   const key = !!localStorage.getItem(name);
 
   return key;
 }
-
+ 
 function createDate(date) {
   let dateVal = (date === '')?new Date().toLocaleDateString():new Date(date).toLocaleDateString();
 
@@ -38,15 +32,6 @@ function createKeyName(name) {
   return key;
 }
 
-function formValue(target) {
-  const form = target.querySelector('form');
-
-  if (checkRequiredVal(getTitle(form))) {
-    storeData(Task(getTitle(form), getDescription(form), getData(form), getPriority(form)), createKeyName('task'));
-  }
-  getAllTasks('task');
-}
-
 function getTitle(target) {
   return target.querySelector('input[name="title"]').value;
 }
@@ -63,24 +48,46 @@ function getPriority(target) {
   return target.querySelector('select').value;
 }
 
-function formEditVal(target, e) {
+function submitNewTask(target) {
+  const form = target.querySelector('form');
+  if (checkRequiredVal(getTitle(form))) {
+    storeData(Task(getTitle(form), getDescription(form), getDate(form), getPriority(form), false), createKeyName('task'));
+  }
+
+  PubSub.publish('taskUpdated');
+}
+
+function submitEditedTask(target, e) {
   const key = e.target.getAttribute('data-key');
   const form = target.querySelector('form');
 
   if (checkRequiredVal(getTitle(form))) {
-    updateData(Task(getTitle(form), getDescription(form), getDate(target), getPriority(form)), key);
+    updateData(Task(getTitle(form), getDescription(form), getDate(target), getPriority(form), false), key);
   }
 
-  PubSub.publish('editSubmitted');
+  PubSub.publish('taskUpdated');
 }
+
+function deleteTask(e) {
+  const key = e.target.getAttribute('data-key'); 
+  deleteData(key);
+
+  PubSub.publish('taskUpdated');
+}
+
 function checkRequiredVal(val) {
   return val !== '';
 }
 
+//Store, complete, edit, and delete functionality
 function storeData(data, name) {
   if (!isKeyExist(name)) {
   localStorage.setItem(name, JSON.stringify(data))
   }
+}
+
+function deleteData(name) {
+  localStorage.removeItem(name);
 }
 
 function updateData(data, name) {
@@ -99,8 +106,4 @@ function getData(key) {
   return JSON.parse(localStorage.getItem(`${key}`));
 }
 
-function editObject() {
-
-}
-
-export {Task, toDoList, formValue, getAllTasks, getData, formEditVal};
+export {getAllTasks, getData, submitNewTask, submitEditedTask, deleteTask, isKeyExist, updateData};

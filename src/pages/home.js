@@ -2,7 +2,7 @@ import { add } from "date-fns";
 import { printAllTasks, createWrapperWithClass} from "../print-tasks";
 import { toDoList } from "../todo";
 import { viewTaskMode } from "../controller";
-import { createPopUpModal, createEditPopUpModal } from "../modal-form";
+import { createPopUpModal, createEditPopUpModal, createDeletePopUpModal } from "../modal-form";
 import { getAllTasks } from "../todo";
 
 function home () {
@@ -18,6 +18,7 @@ function home () {
   content.appendChild(mainContent());
   content.appendChild(createPopUpModal());
   content.appendChild(createEditPopUpModal());
+  content.appendChild(createDeletePopUpModal());
 
   return homeContainer;
 }

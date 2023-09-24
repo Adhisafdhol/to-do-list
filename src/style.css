@@ -340,22 +340,25 @@ button.delete {
   display: flex;
 }
 
-button.edit {
+.task-header :nth-child(3){
   margin-left: auto;
+}
+
+.task-header button.edit {
   margin-right: var(--small-gap);
 }
 
 button.edit:hover,
-button.delete:hover {
+button.delete:hover,
+button.done:hover {
   background-color: var(--light-color-2);
   border-radius: 50%;
   box-shadow: 0 0 0 5px var(--light-color-2);
 }
 
-
 button.edit::before,
 button.delete::before,
-button.done:hover::before  {
+button.done::before  {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -365,9 +368,9 @@ button.done:hover::before  {
   background-size: 100% 100%;  
 }
 
-button.done:hover::before {
+button.done[data-complete="true"]::before {
   content: "✓";
-  color: var(--dark-color-1);
+  color: var(--dark-color-2);
 }
 
 button.edit::before {
@@ -385,6 +388,10 @@ button.delete::before {
   font-weight: 500;
 }
 
+.task s[data-info="title"] {
+  color: var(--grey);
+}
+
 .task-list {
   display: flex;
   align-items: center;
@@ -394,6 +401,7 @@ button.delete::before {
 }
 
 .task [data-info="description"] {
+  padding: var(--medium-font);
   font-size: var(--small-medium-font);
   padding-left: calc(var(--medium-font) + calc(var(--small-gap) * 2));
   color: var(--dark-grey);
@@ -401,7 +409,6 @@ button.delete::before {
 }
 
 .task [data-info="date"]{
-  width: clamp(30px, 50px, 10vw);
   font-size: var(--small-font);
   padding-left: 1.25em;
   display: flex;
@@ -417,6 +424,10 @@ button.delete::before {
   height: 1em;
   background-image: url(./img/icons/event_note_FILL0_wght400_GRAD0_opsz48.svg);
   background-size: 100% 100%;
+}
+
+.task[data-complete="true"] [data-info="date"]::before {
+  background-image: url(./img/icons/event_note_FILL0_wght400_GRAD0_opsz48-off.svg);
 }
 
 .task-footer {
@@ -451,9 +462,20 @@ button.delete::before {
  background-image: url(./img/icons/flag_FILL0_wght400_GRAD0_opsz48-high.svg);
 }
 
+.task[data-complete="true"] [data-info="priority"]::before {
+  background-image: url(./img/icons/flag_FILL0_wght400_GRAD0_opsz48-off.svg);
+}
+
+/*Set completed task data*/
+.task[data-complete="true"] [data-info="description"],
+.task[data-complete="true"] [data-info="date"],
+.task[data-complete="true"] .done::before {
+  color: var(--grey);
+}
 /* Form pop up modal style */
 .modal,
-.edit-modal {
+.edit-modal,
+.delete-modal {
   border-radius: 3px;
   background-color: var(--light-color-base);
   border: none;
@@ -468,6 +490,13 @@ button.delete::before {
   flex-direction: column;
   width: min(85vw, calc(450px + 3vw));
   font-size:var(--medium-font);
+}
+
+.delete-warning {
+  align-self: center;
+  font-weight: 500;
+  color: var(--dark-color-2);
+  padding: var(--big-padding);
 }
 
 .main-input {
@@ -536,7 +565,7 @@ textarea:focus {
 
 .date label,
 .priority label {
-  width: clamp(50px, 70px, 15vw);
+  width: clamp(8ch, 10ch, 15vw);
   color: var(--dark-color-1);
 }
 
@@ -561,6 +590,7 @@ textarea:focus {
 option {
   background-color: var(--light-color-1);
 }
+
 /* button container style */
 .btn-container {
   padding: clamp(0.75rem, 1rem, 1.5vw);
@@ -588,6 +618,10 @@ option {
   background-color: var(--accent-color-2);
 }
 
+.btn-container .delete-task {
+  background-color: var(--high-color);
+  color: var(--light-color-base);
+}
 /* Hide elements */
 .hidden {
   display: none;

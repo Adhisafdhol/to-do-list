@@ -2,7 +2,7 @@ import 'normalize.css';
 import PubSub, { publish } from 'pubsub-js';
 import './fonts/inter/style.css';
 import './style.css';
-import {toDoList , Task, formValue, formEditVal} from './todo';
+import {submitEditedTask, submitNewTask, deleteTask} from './todo';
 import {home} from './pages/home';
 import { printAllTasks , setEditFormInput, updateTaskDom} from './print-tasks';
 import { selectBtn, viewTaskMode , toggleView, showDialog, resetForm} from './controller';
@@ -22,6 +22,7 @@ function component () {
 
   const modalForm = document.querySelector('.modal');
   const modalEditForm = document.querySelector('.edit-modal');
+  const modalDeleteForm = document.querySelector('.delete-modal');
   const mainContent = document.querySelector('.main-content');
 
   function updateEditForm(obj) {
@@ -30,11 +31,10 @@ function component () {
 
   const openForm = PubSub.subscribe('formOpened', showDialog.bind(this, modalForm));
   const editFormOpened = PubSub.subscribe('editFormOpened', showDialog.bind(this, modalEditForm));
+  const deleteFormOpened = PubSub.subscribe('deleteFormOpened', showDialog.bind(this, modalDeleteForm));
   const showLabel = PubSub.subscribe('formOpened', resetFormLabel.bind(this,  modalForm.querySelector('form')));
   const resetFormVal = PubSub.subscribe('formOpened', resetForm.bind(this, modalForm.querySelector('form')))
-  const submitForm = PubSub.subscribe('formSubmitted', formValue.bind(this, modalForm));
-  const updateTaskList = PubSub.subscribe('formSubmitted',updateTaskDom.bind(this, mainContent));
-  const submitEdit = PubSub.subscribe('editSubmitted', updateTaskDom.bind(this, mainContent)); 
+  const updateTaskList = PubSub.subscribe('taskUpdated',updateTaskDom.bind(this, mainContent));
 
   const addTaskBtn = document.querySelector('button[data-key="add-task"');
   addTaskBtn.addEventListener('click', PubSub.publish.bind(this,'formOpened'));
@@ -43,10 +43,13 @@ function component () {
   cancelBtn.addEventListener('click', PubSub.publish.bind(this, 'formClosed'));
 
   const submitBtn = document.querySelector('button.submit');
-  submitBtn.addEventListener('click', PubSub.publish.bind(this, 'formSubmitted'));
+  submitBtn.addEventListener('click', submitNewTask.bind(this, modalForm));
 
   const submitEditBtn = document.querySelector('button.submit-edit');
-  submitEditBtn.addEventListener('click', formEditVal.bind(this, modalEditForm));
+  submitEditBtn.addEventListener('click', submitEditedTask.bind(this, modalEditForm));
+
+  const deleteTaskBtn = document.querySelector('button.delete-task');
+  deleteTaskBtn.addEventListener('click', deleteTask);
 
   return content;
 }

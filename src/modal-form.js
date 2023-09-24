@@ -1,8 +1,8 @@
 import { createWrapperWithClass } from "./print-tasks";
 import { hideLabel } from "./hide-elements";
 
-function createModal() {
-  return createWrapperWithClass('dialog', 'modal');
+function createModal(name) {
+  return createWrapperWithClass('dialog', name);
 }
 
 function createForm(id, action, method) {
@@ -101,7 +101,7 @@ function createOption(value, text) {
 
 //create a popup modal dialog
 function createPopUpModal() {
-  const container = createModal();
+  const container = createModal('modal');
   const form = createForm('task-form', '*', 'dialog');
   container.appendChild(form);
 
@@ -166,4 +166,22 @@ function createEditPopUpModal() {
   return modal;
 }
 
-export {createPopUpModal, createEditPopUpModal};
+function createDeletePopUpModal() {
+  const modal = createModal('delete-modal');
+  const container = createForm('delete-pop-up', '*', 'dialog');
+  modal.appendChild(container);
+  const content = createWrapperWithClass('div', 'delete-warning');
+  content.textContent = 'Are you sure you want to delete this task?';
+  container.appendChild(content);
+  const btnContainer = createWrapperWithClass('div', 'btn-container')
+  const closeBtn = createCloseBtn('cancel', 'Cancel');
+  const submitBtn = createButton('delete-task', 'delete');
+  container.appendChild(btnContainer);
+  btnContainer.appendChild(closeBtn);
+  btnContainer.appendChild(submitBtn);
+
+  console.log(modal);
+  return modal;
+}
+
+export {createPopUpModal, createEditPopUpModal, createDeletePopUpModal};
