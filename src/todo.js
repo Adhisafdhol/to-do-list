@@ -36,6 +36,10 @@ function getTitle(target) {
   return target.querySelector('input[name="title"]').value;
 }
 
+function getProject(target) {
+  return target.querySelector('input[name="project"]').value;
+}
+
 function getDescription(target) {
   return target.querySelector('textarea').value;
 }
@@ -106,4 +110,16 @@ function getData(key) {
   return JSON.parse(localStorage.getItem(`${key}`));
 }
 
-export {getAllTasks, getData, submitNewTask, submitEditedTask, deleteTask, isKeyExist, updateData};
+function submitNewProject(target) {
+  const form = target.querySelector('form');
+  const project = getData('project');
+
+  if (checkRequiredVal(getProject(form))) {
+    project.push(getProject(form));
+    updateData(project, 'project');
+  }
+
+  PubSub.publish('projectUpdated');
+}
+
+export {getAllTasks, getData, submitNewTask, submitEditedTask, deleteTask, isKeyExist, updateData, submitNewProject, storeData};

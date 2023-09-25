@@ -173,7 +173,7 @@ button {
 
 .sidebar {
   display: flex;
-  height: calc(100% - var(--big-font));
+  height: calc(100% - calc(var(--medium-padding)*2));
   z-index: 2;
   position: absolute;
   flex-direction: column;
@@ -222,7 +222,7 @@ button {
   background-color: var(--accent-color-3);
 }
 /* sidebar project style */
-.project {
+.project-list {
   padding: var(--small-padding);
   font-weight: 700;
 }
@@ -307,6 +307,7 @@ button[data-key="add-task"]::before {
 }
 
 .task {
+  overflow-wrap: anywhere;
   padding: var(--medium-gap) 0;
   width: min(85vw, calc(500px + 15vw));
   display: flex;
@@ -320,37 +321,36 @@ button[data-key="add-task"]::before {
   display: flex;
   gap: var(--small-gap);
 }
-
+button.edit,
+button.delete,
+button.expand, 
 button.done {
   display: flex;
   position: relative;
   width: var(--medium-font);
   height: var(--medium-font);
-  border-radius: 50%;
-  background-color: var(--light-color-1);
-  border: var(--grey) 1px solid;
 }
 
 button.edit,
-button.delete {
-  width: var(--medium-font);
-  height: var(--medium-font);
-  position: relative;
+button.delete,
+button.expand {
   border: none;
-  display: flex;
+}
+
+button.done {
+  border-radius: 50%;
+  background-color: var(--light-color-1);
+  border: var(--grey) 1px solid;
 }
 
 .task-header :nth-child(3){
   margin-left: auto;
 }
 
-.task-header button.edit {
-  margin-right: var(--small-gap);
-}
-
 button.edit:hover,
 button.delete:hover,
-button.done:hover {
+button.done:hover,
+button.expand:hover {
   background-color: var(--light-color-2);
   border-radius: 50%;
   box-shadow: 0 0 0 5px var(--light-color-2);
@@ -358,7 +358,8 @@ button.done:hover {
 
 button.edit::before,
 button.delete::before,
-button.done::before  {
+button.done::before,
+button.expand::before  {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -381,6 +382,15 @@ button.delete::before {
   background-image: url(./img/icons/delete_FILL0_wght400_GRAD0_opsz48.svg);
 }
 
+button.expand::before {
+  background-image: url(./img/icons/expand_more_FILL0_wght400_GRAD0_opsz48.svg);
+}
+
+.detail-open button.expand::before {
+  background-image: url(./img/icons/expand_more_FILL0_wght400_GRAD0_opsz48.svg);
+  transform: rotate(-90deg);
+}
+
 .task  [data-info="title"] {
   font-size: var(--medium-font);
   padding-left: var(--small-gap);
@@ -401,7 +411,6 @@ button.delete::before {
 }
 
 .task [data-info="description"] {
-  padding: var(--medium-font);
   font-size: var(--small-medium-font);
   padding-left: calc(var(--medium-font) + calc(var(--small-gap) * 2));
   color: var(--dark-grey);
@@ -475,7 +484,8 @@ button.delete::before {
 /* Form pop up modal style */
 .modal,
 .edit-modal,
-.delete-modal {
+.delete-modal,
+.project-modal {
   border-radius: 3px;
   background-color: var(--light-color-base);
   border: none;
@@ -499,6 +509,12 @@ button.delete::before {
   padding: var(--big-padding);
 }
 
+.project-input {
+  display: flex;
+  align-items: center;
+  padding: var(--big-padding);
+}
+
 .main-input {
   display: flex;
   flex-direction: column;
@@ -506,8 +522,16 @@ button.delete::before {
   padding: clamp(0.75rem, 1.25rem, 2vw);
 }
 
+.select-container {
+  display: flex;
+}
+
+.select-container > div {
+  flex: 1 0 auto;
+}
 .title,
-.description {
+.description,
+.project-input {
   position: relative;
   display: flex;
 }
@@ -525,15 +549,24 @@ button.delete::before {
 }
 
 .title > label,
-.description > label {
+.description > label,
+.project-input > label {
   padding: var(--small-padding);
   z-index: 2;
   position: absolute;
   color: var(--dark-color-1);
 }
 
+.project-input input {
+  border: var(--accent-color-1) 1px solid;
+  border-bottom: var(--accent-color-1) 3px solid;
+  border-right: var(--accent-color-1) 3px solid;
+} 
+
 .title > label, 
-.title input {
+.title input,
+.project-input > label,
+.project-input input {
   color: var(--dark-color-2);
   font-size: var(--big-medium-font);
   font-weight: 500;
@@ -557,14 +590,16 @@ textarea:focus {
 }
 
 .date,
-.priority {
+.priority,
+.project {
   display: flex;
   gap: var(--small-gap);
   color: var(--dark-color-2);
 }
 
 .date label,
-.priority label {
+.priority label, 
+.project label {
   width: clamp(8ch, 10ch, 15vw);
   color: var(--dark-color-1);
 }
@@ -575,7 +610,8 @@ textarea:focus {
 }
 
 .date input,
-.priority select {
+.priority select,
+.project select {
   flex: 0;
   border-radius: 2px;
   font-size: 0.8em;
@@ -614,7 +650,8 @@ option {
 }
 
 .btn-container .submit,
-.btn-container .submit-edit {
+.btn-container .submit-edit,
+.btn-container .submit-project {
   background-color: var(--accent-color-2);
 }
 
@@ -639,8 +676,15 @@ option {
 }
 
 /*Media query*/
-@media only screen and (min-width: 481px) {
-  .main-content button[data-key="add-task"] {
-    margin-left: calc(var(--sidebar-width) + var(--medium-padding));
+@media only screen and (max-width: 481px) {
+  .main-content {
+    padding-right: 2.5vw;
+    padding-left: 2.5vw;
+  }
+
+  .task {
+    width: 95vw;
+    padding-right: 0;
+    padding-left: 0;
   }
 }

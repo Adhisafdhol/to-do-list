@@ -23,4 +23,4 @@ function resetLabel(target) {
   target.classList.remove('visually-hidden');
 }
 
-export {hideLabel, resetFormLabel};
+export {hideLabel, resetFormLabel, toggleClassName};

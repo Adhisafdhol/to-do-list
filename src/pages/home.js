@@ -2,10 +2,11 @@ import { add } from "date-fns";
 import { printAllTasks, createWrapperWithClass} from "../print-tasks";
 import { toDoList } from "../todo";
 import { viewTaskMode } from "../controller";
-import { createPopUpModal, createEditPopUpModal, createDeletePopUpModal } from "../modal-form";
-import { getAllTasks } from "../todo";
+import { createPopUpModal, createEditPopUpModal, createDeletePopUpModal, createProjectPopUp } from "../modal-form";
+import { storeData} from "../todo";
 
 function home () {
+  storeData(['inbox'], 'project');
   const homeContainer = document.createElement('div');
   homeContainer.classList.add('home-container');
 
@@ -19,6 +20,7 @@ function home () {
   content.appendChild(createPopUpModal());
   content.appendChild(createEditPopUpModal());
   content.appendChild(createDeletePopUpModal());
+  content.appendChild(createProjectPopUp());
 
   return homeContainer;
 }
@@ -53,26 +55,27 @@ function sidebar() {
   today.appendChild(todayBtn);
   sidebarList.appendChild(today);
 
-  const next7Days = document.createElement('li');
-  const next7DaysBtn = createButton('view-task', 'Next 7 Days');
-  next7Days.appendChild(next7DaysBtn);
-  sidebarList.appendChild(next7Days);
-
   const allTask = document.createElement('li');
   const allTaskBtn = createButton('view-task', 'All tasks');
   allTaskBtn.classList.add('on-view');
   allTask.appendChild(allTaskBtn);
   sidebarList.appendChild(allTask);
 
-  const projects = createWrapperWithClass('div', 'project');
+  const inbox = document.createElement('li');
+  const inboxBtn = createButton('view-task', 'Inbox');
+  inbox.appendChild(inboxBtn);
+  sidebarList.appendChild(inbox);
+
+  const projects = createWrapperWithClass('div', 'project-list');
   const projectHeaderContainer = createWrapperWithClass('div', 'project-header');
   const viewProjectsBtn = createWrapperWithClass('button', 'view-projects');
   projectHeaderContainer.appendChild(viewProjectsBtn);
   const projectHeader = document.createElement('div');
   projectHeader.textContent = 'Projects';
   projectHeaderContainer.appendChild(projectHeader);
-  const addProjectsBtn = createWrapperWithClass('div', 'add-project');
+  const addProjectsBtn = createWrapperWithClass('button', 'add-project');
   projectHeaderContainer.appendChild(addProjectsBtn);
+  const projectMainList = createWrapperWithClass('div', 'project-main-list');
   projects.appendChild(projectHeaderContainer);
   sidebar.appendChild(projects);
 

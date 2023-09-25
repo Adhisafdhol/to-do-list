@@ -1,7 +1,7 @@
 import { deleteTask, getData, updateData} from "./todo";
 import { format } from "date-fns";
 import PubSub from "pubsub-js";
-import { hideLabel } from "./hide-elements";
+import { hideLabel , toggleClassName} from "./hide-elements";
 import { isKeyExist } from "./todo";
 
 const taskDom = (obj, key) => {
@@ -16,12 +16,13 @@ const taskDom = (obj, key) => {
   initiateEditBtn(obj, key, headerWrapper)
   headerWrapper.appendChild(deleteBtn);
   const descriptionDom = taskPropertyDom(obj, 'description', 'div');
-  descriptionDom.classList.add('visually-hidden');
+  descriptionDom.classList.add('hidden');
   const footerWrapper = createWrapperWithClass('div', 'task-footer');
   const dateDom = taskPropertyDateDom(obj, 'date');
   const expandTaskBtn = createExpandBtn(key);
   const priority = taskPropertyPriorityDom(obj, 'priority');
   footerWrapper.appendChild(dateDom);
+  footerWrapper.appendChild(expandTaskBtn);
   footerWrapper.appendChild(priority);
 
   return [headerWrapper, descriptionDom, footerWrapper];
@@ -90,9 +91,11 @@ function updateTaskDom(container) {
 function  AppendAllData(key, container) {
   const length = localStorage.length;
   let keys = 0;
+  if(isKeyExist('project')) {
+    keys += 1;
+  }
   for (let i = 0; keys < length; i++) {
     let currentKey = `${key}` + `${i}`;
-    console.log(`${key}` + `${i}`)
     if(isKeyExist(currentKey)) {
       keys += 1;
       container.appendChild(createTaskDom(getData(currentKey), currentKey));
@@ -247,10 +250,46 @@ function createDeleteBtn(key) {
 }
 
 function createExpandBtn(key) {
-  const btn = createBtnClassWithData('expand-task', 'data-key', key)
-  //btn.addEventListener('click', expandTask.bind(this, btn.getAttribute('data-key')));
+  const btn = createBtnClassWithData('expand', 'data-key', key)
+  btn.addEventListener('click', expandTask.bind(this, btn.getAttribute('data-key')));
  
   return btn;
+}
+
+function expandTask(task) {
+  const dom = document.querySelector(`.task[data-key="${task}"`);
+  const descriptionDom = dom.querySelector('[data-info="description"]')
+  toggleTaskView(descriptionDom);
+}
+
+function toggleTaskView(target) {
+  toggleClassName(target, 'hidden');
+  toggleClassName(findParent(target), 'detail-open');
+}
+
+function printAllProject() {
+  const projectListContainer = createWrapperWithClass('div', 'project-main-list');
+  projectListContainer.setAttribute('data-view', 'all-project');
+  AppendAllProject(projectListContainer);
+
+  console.log(projectListContainer);
+  return projectListContainer;
+}
+
+function  AppendAllProject(container) {
+  const project = getData('project');
+
+  for (let i = 0; i < project.length; i++) {
+    let currentKey = project[i];
+      container.appendChild(createProjectDom(currentKey));
+    }
+}
+
+function createProjectDom(obj) {
+  const project = createWrapperWithClass('div', `project-dom`);
+  project.setAttribute('data-project', `${obj}`);
+
+  return project;
 }
 
 export {printAllTasks, createWrapperWithClass, updateTaskDom};

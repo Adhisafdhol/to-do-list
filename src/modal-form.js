@@ -118,6 +118,7 @@ function createPopUpModal() {
 
   const dateInput = createInputEl('date', 'date', 'date', 'date', 'Due-date', ' ');
 
+  const selectElContainer = createWrapperWithClass('div', 'select-container');
   //create select
   const selectContainer = createWrapperWithClass('div', 'priority');
   const selectLabel = createLabel('priority', 'Priority');
@@ -130,6 +131,16 @@ function createPopUpModal() {
   select.appendChild(selectOpt3);
   selectContainer.appendChild(selectLabel);
   selectContainer.appendChild(select);
+  
+  //create Project option
+  const projectContainer = createWrapperWithClass('div', 'project');
+  const projectLabel = createLabel('project', 'Project');
+  const projectSelect = createSelect('project', 'project');
+  projectContainer.appendChild(projectLabel);
+  projectContainer.appendChild(projectSelect);
+
+  selectElContainer.appendChild(selectContainer);
+  selectElContainer.appendChild(projectContainer)
 
   //create button 
   const btnContainer = createWrapperWithClass('div', 'btn-container')
@@ -139,7 +150,7 @@ function createPopUpModal() {
   formEl.appendChild(titleInput);
   formEl.appendChild(descriptionInput);
   formEl.appendChild(dateInput);
-  formEl.appendChild(selectContainer);
+  formEl.appendChild(selectElContainer);
   form.appendChild(btnContainer);
   btnContainer.appendChild(closeBtn);
   btnContainer.appendChild(submitBtn);
@@ -175,13 +186,30 @@ function createDeletePopUpModal() {
   container.appendChild(content);
   const btnContainer = createWrapperWithClass('div', 'btn-container')
   const closeBtn = createCloseBtn('cancel', 'Cancel');
-  const submitBtn = createButton('delete-task', 'delete');
+  const submitBtn = createButton('delete-task', 'Delete');
   container.appendChild(btnContainer);
   btnContainer.appendChild(closeBtn);
   btnContainer.appendChild(submitBtn);
 
+  return modal;
+}
+
+function createProjectPopUp() {
+  const modal = createModal('project-modal');
+  const form = createForm('project-pop-up', '*', 'dialog');
+  modal.appendChild(form);
+  const projectInput = createRequiredInputEl('project-input', 'text', 'project-input', 'project', 'Project', ' ');
+  projectInput.addEventListener('input', hideLabel.bind(projectInput, projectInput.querySelector('label'), projectInput.querySelector('input')));
+  form.appendChild(projectInput);
+  const btnContainer = createWrapperWithClass('div', 'btn-container')
+  const closeBtn = createCloseBtn('cancel', 'Cancel');
+  const submitBtn = createButton('submit-project', 'Add');
+  form.appendChild(btnContainer);
+  btnContainer.appendChild(closeBtn);
+  btnContainer.appendChild(submitBtn);
+ 
   console.log(modal);
   return modal;
 }
 
-export {createPopUpModal, createEditPopUpModal, createDeletePopUpModal};
+export {createPopUpModal, createEditPopUpModal, createDeletePopUpModal, createProjectPopUp};
