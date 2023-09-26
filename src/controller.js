@@ -1,3 +1,6 @@
+import { toggleClassName } from "./hide-elements";
+import PubSub from "pubsub-js";
+
 function viewTaskMode(e) {
   const viewMode = e.target.getAttribute('data-key');
 }
@@ -28,4 +31,10 @@ function resetForm(target) {
   target.reset();
 }
 
-export {viewTaskMode, selectBtn, toggleView, showDialog, resetForm};
+function viewProjectList(e) {
+  const mainProjectList = document.querySelector('.main-project-list');
+  toggleClassName(mainProjectList, 'visually-hidden');
+  toggleClassName(e.target, 'project-on-view');
+}
+
+export {viewTaskMode, selectBtn, toggleView, showDialog, resetForm, viewProjectList};

@@ -1,9 +1,10 @@
 import PubSub from "pubsub-js";
+import { initiateKey, isProjectExist } from "./print-tasks";
 
 //constructor function to create a task
-const Task = (title, description, date, priority, complete) => {
+const Task = (title, description, date, priority, complete, project) => {
   let dateVal = createDate(date);
-  return {title, description, date: dateVal, priority, complete};
+  return {title, description, date: dateVal, priority, complete, project};
 };
 
 //Check if key exist
@@ -49,31 +50,41 @@ function getDate(target) {
 }
 
 function getPriority(target) {
-  return target.querySelector('select').value;
+  return target.querySelector('.priority select').value;
+}
+
+function getProjectVal(target) {
+  return target.querySelector('.project select').value;
 }
 
 function submitNewTask(target) {
   const form = target.querySelector('form');
-  if (checkRequiredVal(getTitle(form))) {
-    storeData(Task(getTitle(form), getDescription(form), getDate(form), getPriority(form), false), createKeyName('task'));
-  }
-
+  approveForm(form);
   PubSub.publish('taskUpdated');
 }
 
-function submitEditedTask(target, e) {
-  const key = e.target.getAttribute('data-key');
+function approveForm(target) {
+  if (checkRequiredVal(getTitle(target))) {
+    storeData(Task(getTitle(target), getDescription(target), getDate(target), getPriority(target), false, getProjectVal(target) ), createKeyName('task'));
+  }
+}
+
+function submitEditedTask(target) {
   const form = target.querySelector('form');
-
-  if (checkRequiredVal(getTitle(form))) {
-    updateData(Task(getTitle(form), getDescription(form), getDate(target), getPriority(form), false), key);
-  }
-
+  const btn = target.querySelector('.submit-edit');
+  const key = btn.getAttribute('data-key');
+  approveEditedTask(form, key)
   PubSub.publish('taskUpdated');
 }
 
-function deleteTask(e) {
-  const key = e.target.getAttribute('data-key'); 
+function approveEditedTask(target, key) {
+  if (checkRequiredVal(getTitle(target))) {
+    updateData(Task(getTitle(target), getDescription(target), getDate(target), getPriority(target), false), key);
+  }
+}
+
+function deleteTask(target) {
+  const key = target.getAttribute('data-key'); 
   deleteData(key);
 
   PubSub.publish('taskUpdated');
@@ -113,13 +124,63 @@ function getData(key) {
 function submitNewProject(target) {
   const form = target.querySelector('form');
   const project = getData('project');
+  
+  if(project) {
+    updateProjectArray(form, project)
+  } else {
+    initiateProject(form);
+  }
 
+}
+
+function updateProjectArray(form, project) {
   if (checkRequiredVal(getProject(form))) {
     project.push(getProject(form));
     updateData(project, 'project');
+    PubSub.publish('projectUpdated');
   }
+}
+
+function initiateProject(form) {
+  storeData([getProject(form)], 'project');
+  PubSub.publish('projectUpdated');
+}
+
+
+function findAllProjectTasks(name, key) {
+  const length = localStorage.length;
+  let keys = initiateKey();
+
+  for (let i = 0; keys < length; i++) {
+    let currentKey = `${key}` + `${i}`;
+    if(isKeyExist(currentKey)) {
+      if (compareTaskProject(getData(currentKey), name)) {
+        deleteData(currentKey);
+      }
+      keys += 1;
+    }
+  }  
+  PubSub.publish('taskUpdated');
+}
+
+function compareTaskProject(obj, toCompare) {
+  return obj['project'] === toCompare;
+}
+
+function deleteProject(target) {
+  const key = target.getAttribute('data-key');
+  updateProjectData(key);
+
+  findAllProjectTasks(key, 'task');
+  //deleteData(key);
 
   PubSub.publish('projectUpdated');
 }
 
-export {getAllTasks, getData, submitNewTask, submitEditedTask, deleteTask, isKeyExist, updateData, submitNewProject, storeData};
+function updateProjectData(key) {
+  const project = getData('project');
+  const index = project.indexOf(key);
+  project.splice(index, 1);
+  updateData(project, 'project') 
+}
+export {getAllTasks, getData, submitNewTask, submitEditedTask, deleteTask, isKeyExist, updateData, submitNewProject, storeData, deleteProject};

@@ -2,11 +2,11 @@ import { add } from "date-fns";
 import { printAllTasks, createWrapperWithClass} from "../print-tasks";
 import { toDoList } from "../todo";
 import { viewTaskMode } from "../controller";
-import { createPopUpModal, createEditPopUpModal, createDeletePopUpModal, createProjectPopUp } from "../modal-form";
+import { createPopUpModal, createEditPopUpModal, createDeletePopUpModal, createProjectPopUp, createDeleteProjectModal } from "../modal-form";
 import { storeData} from "../todo";
+import { createProjectDom, printAllProject } from "../print-project";
 
 function home () {
-  storeData(['inbox'], 'project');
   const homeContainer = document.createElement('div');
   homeContainer.classList.add('home-container');
 
@@ -21,6 +21,7 @@ function home () {
   content.appendChild(createEditPopUpModal());
   content.appendChild(createDeletePopUpModal());
   content.appendChild(createProjectPopUp());
+  content.appendChild(createDeleteProjectModal());
 
   return homeContainer;
 }
@@ -61,11 +62,6 @@ function sidebar() {
   allTask.appendChild(allTaskBtn);
   sidebarList.appendChild(allTask);
 
-  const inbox = document.createElement('li');
-  const inboxBtn = createButton('view-task', 'Inbox');
-  inbox.appendChild(inboxBtn);
-  sidebarList.appendChild(inbox);
-
   const projects = createWrapperWithClass('div', 'project-list');
   const projectHeaderContainer = createWrapperWithClass('div', 'project-header');
   const viewProjectsBtn = createWrapperWithClass('button', 'view-projects');
@@ -75,8 +71,8 @@ function sidebar() {
   projectHeaderContainer.appendChild(projectHeader);
   const addProjectsBtn = createWrapperWithClass('button', 'add-project');
   projectHeaderContainer.appendChild(addProjectsBtn);
-  const projectMainList = createWrapperWithClass('div', 'project-main-list');
   projects.appendChild(projectHeaderContainer);
+  projects.appendChild(printAllProject());
   sidebar.appendChild(projects);
 
   return sidebar;
@@ -86,12 +82,13 @@ function mainContent() {
   const mainContent = document.createElement('main');
   mainContent.classList.add('main-content');
   mainContent.appendChild(printAllTasks());
-  mainContent.appendChild(addTask());
+  mainContent.appendChild(createAddTaskBtn());
 
   return mainContent;
 }
 
-function addTask() {
+//create add task button
+function createAddTaskBtn() {
   const btnContainer = document.createElement('div');
   btnContainer.classList.add('add-task-container');
   const addTaskBtn = document.createElement('button');

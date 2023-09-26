@@ -1,5 +1,6 @@
 import { createWrapperWithClass } from "./print-tasks";
 import { hideLabel } from "./hide-elements";
+import { printAllProjectOpt } from "./print-project";
 
 function createModal(name) {
   return createWrapperWithClass('dialog', name);
@@ -135,7 +136,7 @@ function createPopUpModal() {
   //create Project option
   const projectContainer = createWrapperWithClass('div', 'project');
   const projectLabel = createLabel('project', 'Project');
-  const projectSelect = createSelect('project', 'project');
+  const projectSelect = printAllProjectOpt();
   projectContainer.appendChild(projectLabel);
   projectContainer.appendChild(projectSelect);
 
@@ -146,6 +147,7 @@ function createPopUpModal() {
   const btnContainer = createWrapperWithClass('div', 'btn-container')
   const closeBtn = createCloseBtn('cancel', 'Cancel');
   const submitBtn = createButton('submit', 'Add task');
+  submitBtn.setAttribute('type', 'submit')
 
   formEl.appendChild(titleInput);
   formEl.appendChild(descriptionInput);
@@ -194,6 +196,19 @@ function createDeletePopUpModal() {
   return modal;
 }
 
+function createDeleteProjectModal() {
+  const modal = createDeletePopUpModal();
+  modal.classList.add('delete-project-modal');
+  modal.classList.remove('delete-modal');
+  const deleteWarning = modal.querySelector('.delete-warning');
+  deleteWarning.textContent = 'Are you sure you want to delete this project?'
+  const deleteBtn = modal.querySelector('.delete-task');
+  deleteBtn.classList.add('submit-delete-project');
+  deleteBtn.classList.remove('delete-task');
+
+  return modal;
+}
+
 function createProjectPopUp() {
   const modal = createModal('project-modal');
   const form = createForm('project-pop-up', '*', 'dialog');
@@ -207,9 +222,8 @@ function createProjectPopUp() {
   form.appendChild(btnContainer);
   btnContainer.appendChild(closeBtn);
   btnContainer.appendChild(submitBtn);
- 
-  console.log(modal);
+
   return modal;
 }
 
-export {createPopUpModal, createEditPopUpModal, createDeletePopUpModal, createProjectPopUp};
+export {createPopUpModal, createEditPopUpModal, createDeletePopUpModal, createProjectPopUp, createOption, createSelect, createDeleteProjectModal};

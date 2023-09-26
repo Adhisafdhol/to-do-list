@@ -1,8 +1,9 @@
 import { deleteTask, getData, updateData} from "./todo";
 import { format } from "date-fns";
 import PubSub from "pubsub-js";
-import { hideLabel , toggleClassName} from "./hide-elements";
+import {toggleClassName} from "./hide-elements";
 import { isKeyExist } from "./todo";
+import { openDeleteForm , openEditForm} from "./form-controller";
 
 const taskDom = (obj, key) => {
   const headerWrapper = createWrapperWithClass('div', 'task-header');
@@ -90,10 +91,8 @@ function updateTaskDom(container) {
 //appendAllData
 function  AppendAllData(key, container) {
   const length = localStorage.length;
-  let keys = 0;
-  if(isKeyExist('project')) {
-    keys += 1;
-  }
+  let keys = initiateKey();
+
   for (let i = 0; keys < length; i++) {
     let currentKey = `${key}` + `${i}`;
     if(isKeyExist(currentKey)) {
@@ -101,6 +100,10 @@ function  AppendAllData(key, container) {
       container.appendChild(createTaskDom(getData(currentKey), currentKey));
     }
   }
+}
+
+function initiateKey() {
+  return isKeyExist('project')?1:0;
 }
 
 //Create wrapper container
@@ -119,49 +122,7 @@ function createWrapperWithClass(tag, name) {
 
 //edit task 
 function getObjKey(target) {
-  console.log(target);
   const objKey = target.getAttribute('data-key');
-  console.log(objKey);
-}
-
-function openEditForm(key) {
-  const taskObj = getData(key);
-  console.log(key);
-  setEditFormInput(taskObj, key);
-  PubSub.publish('editFormOpened');
-}
-
-function openDeleteForm(key) {
-  console.log(key);
-  const taskObj = getData(key);
-  setDeleteForm(key);
-  PubSub.publish('deleteFormOpened');
-}
-
-function setEditFormInput(obj, key) {
-  const form = document.querySelector('.edit-modal');
-  const titleLabel = form.querySelector('.title label')
-  const titleInput = form.querySelector('.title input');
-  titleInput.value = obj[`title`];
-  hideLabel(titleLabel, titleInput);
-  const descriptionLabel = form.querySelector('.description label');
-  const descriptionInput = form.querySelector('.description textarea');
-  descriptionInput.value = obj[`description`];
-  descriptionInput.textContent = obj[`description`];
-  hideLabel(descriptionLabel, descriptionInput);
-  const date = form.querySelector('.date input');
-  const dateVal = format(new Date(obj['date']), 'yyyy-MM-dd');
-  date.value = dateVal;
-  const priority = form.querySelector('.priority select');
-  priority.value = obj['priority'];
-  const btn = document.querySelector('.submit-edit');
-  btn.setAttribute('data-key', key);
-}
-
-function setDeleteForm(key) {
-  const form = document.querySelector('.delete-modal');
-  const deleteBtn = form.querySelector('.delete-task');
-  deleteBtn.setAttribute('data-key', key);
 }
 
 //Change the completion task property
@@ -180,8 +141,8 @@ function changeObjProperty(obj, property, value) {
   obj[property] = value;
 }
 
+//Change task completion status 
 function updateTaskStatusDom(obj, key) {
-  console.log(key);
   const taskDom = document.querySelector(`.task[data-key="${key}"]`);
   const deleteBtn = taskDom.querySelector(`.delete`);
   taskDom.setAttribute('data-complete', `${obj['complete']}`);
@@ -267,29 +228,4 @@ function toggleTaskView(target) {
   toggleClassName(findParent(target), 'detail-open');
 }
 
-function printAllProject() {
-  const projectListContainer = createWrapperWithClass('div', 'project-main-list');
-  projectListContainer.setAttribute('data-view', 'all-project');
-  AppendAllProject(projectListContainer);
-
-  console.log(projectListContainer);
-  return projectListContainer;
-}
-
-function  AppendAllProject(container) {
-  const project = getData('project');
-
-  for (let i = 0; i < project.length; i++) {
-    let currentKey = project[i];
-      container.appendChild(createProjectDom(currentKey));
-    }
-}
-
-function createProjectDom(obj) {
-  const project = createWrapperWithClass('div', `project-dom`);
-  project.setAttribute('data-project', `${obj}`);
-
-  return project;
-}
-
-export {printAllTasks, createWrapperWithClass, updateTaskDom};
+export {printAllTasks, createWrapperWithClass, updateTaskDom, initiateKey};

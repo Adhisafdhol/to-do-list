@@ -193,7 +193,8 @@ button {
   flex-direction: column;
 }
 
-.sidebar > ul button {
+.sidebar > ul button, 
+.main-project-list li > button{
   padding: var(--small-padding);
   width: 100%;
   font-size: var(--medium-big-font);
@@ -202,23 +203,26 @@ button {
   border: none;
 }
 
-.sidebar > ul > li.selected {
+.sidebar > ul > li.selected,
+.main-project-list li.selected {
   background-color: var(--grey);
 }
 
-.sidebar > ul > li:hover {
+.sidebar > ul > li:hover,
+.main-project-list li:hover {
   background-color: var(--light-color-2);
   border-radius: 3px;
 }
 
-.sidebar button.on-view {
-  font-weight: 500;
+.sidebar button.on-view,
+.main-project-list button.on-view {
   background-color: var(--accent-color-2);
   color: var(--dark-color-2);
   border-radius: 3px;
 }
 
-.sidebar button.on-view:hover {
+.sidebar button.on-view:hover,
+.main-project-list button.on-view:hover {
   background-color: var(--accent-color-3);
 }
 /* sidebar project style */
@@ -231,6 +235,20 @@ button {
   display: flex;
   align-items: center;
   gap: var(--small-gap);
+}
+
+.project-dom {
+  border-bottom: var(--accent-color-4) 1px solid;
+  display: flex;
+  align-items: center;
+}
+
+.project-dom > :first-child:hover {
+  background-color: var(--accent-color-4);
+}
+
+.delete-project {
+  flex: 0;
 }
 
 .view-projects,
@@ -259,6 +277,10 @@ button {
 .view-projects::before {
   background-image: url(./img/icons/expand_more_FILL0_wght400_GRAD0_opsz48.svg);
   transform: rotate(-90deg);
+}
+
+.project-on-view::before {
+  transform: none;
 }
 
 .add-project::before{
@@ -324,7 +346,8 @@ button[data-key="add-task"]::before {
 button.edit,
 button.delete,
 button.expand, 
-button.done {
+button.done, 
+button.delete-project {
   display: flex;
   position: relative;
   width: var(--medium-font);
@@ -359,7 +382,8 @@ button.expand:hover {
 button.edit::before,
 button.delete::before,
 button.done::before,
-button.expand::before  {
+button.expand::before,
+button.delete-project::before {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -378,7 +402,8 @@ button.edit::before {
   background-image: url(./img/icons/border_color_FILL0_wght400_GRAD0_opsz48\ \(1\).svg);
 }
 
-button.delete::before {
+button.delete::before,
+button.delete-project::before {
   background-image: url(./img/icons/delete_FILL0_wght400_GRAD0_opsz48.svg);
 }
 
@@ -398,8 +423,9 @@ button.expand::before {
   font-weight: 500;
 }
 
-.task s[data-info="title"] {
-  color: var(--grey);
+.task [data-info="title"] {
+  color: var(--dark-color-3);
+  flex: 1;
 }
 
 .task-list {
@@ -412,7 +438,7 @@ button.expand::before {
 
 .task [data-info="description"] {
   font-size: var(--small-medium-font);
-  padding-left: calc(var(--medium-font) + calc(var(--small-gap) * 2));
+  padding: 0 calc(var(--medium-font) + calc(var(--small-gap) * 2));
   color: var(--dark-grey);
   margin: var(--small-gap);
 }
@@ -485,7 +511,8 @@ button.expand::before {
 .modal,
 .edit-modal,
 .delete-modal,
-.project-modal {
+.project-modal,
+.delete-project-modal {
   border-radius: 3px;
   background-color: var(--light-color-base);
   border: none;
@@ -655,7 +682,8 @@ option {
   background-color: var(--accent-color-2);
 }
 
-.btn-container .delete-task {
+.btn-container .delete-task,
+.btn-container .submit-delete-project {
   background-color: var(--high-color);
   color: var(--light-color-base);
 }
