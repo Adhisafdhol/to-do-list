@@ -4,19 +4,22 @@ import './fonts/inter/style.css';
 import './style.css';
 import {submitEditedTask, submitNewTask, deleteTask, submitNewProject, deleteProject} from './todo';
 import {home} from './pages/home';
-import { printAllTasks , setEditFormInput, updateTaskDom} from './print-tasks';
-import { selectBtn, viewTaskMode , toggleView, showDialog, resetForm, viewProjectList} from './controller';
+import { printAllTasks, updateTaskDom } from './print-all-task';
+import { selectBtn, viewTaskMode , toggleView, showDialog, resetForm, viewProjectList, viewTodayTask, viewAllTask} from './controller';
 import { createPopUpModal} from './modal-form';
-import { resetFormLabel, toggleClassName } from './hide-elements';
+import {changeOnViewBtn, resetFormLabel} from './hide-elements';
 import { updateProjectDom , updateProjectOpt} from './print-project';
+import { closeForm } from './form-controller';
 
 function component () {
   const content = document.getElementById('content');
   content.appendChild(home());
 
   const sidebar = document.querySelector('.sidebar');
-  const viewTaskBtn = document.querySelectorAll('button.view-task');
-  viewTaskBtn.forEach(button => button.addEventListener('click', viewTaskMode));
+  const viewTaskBtn = document.querySelectorAll('.sidebar button.view-task');
+  const viewProjectBtn = document.querySelectorAll('.sidebar button.view-project')
+  //viewTaskBtn.forEach(button => button.addEventListener('click', viewTaskMode));
+  //viewProjectBtn.forEach(button => button.addEventListener('click', viewTaskMode));
 
   const sidebarBtn = document.querySelector('.sidebar-btn');
   sidebarBtn.addEventListener('click', toggleView.bind(sidebarBtn, sidebar));
@@ -57,7 +60,7 @@ function component () {
 
   const deleteTaskEl = document.querySelector('.delete-modal > form');
   const deleteTaskBtn = document.querySelector('button.delete-task');
-  deleteTaskEl.addEventListener('click', deleteTask.bind(this, deleteTaskBtn));
+  deleteTaskEl.addEventListener('submit', deleteTask.bind(this, deleteTaskBtn));
 
   const deleteProjectEl = document.querySelector('.delete-project-modal > form');
   const deleteProjectBtn = document.querySelector('button.submit-delete-project');
@@ -73,8 +76,17 @@ function component () {
   const addProjectBtn = document.querySelector('button.add-project');
   addProjectBtn.addEventListener('click', PubSub.publish.bind(this,'projectFormOpened'));
  
-  const cancelBtn = document.querySelector('button.cancel');
-  cancelBtn.addEventListener('click', PubSub.publish.bind(this, 'formClosed'));
+  const cancelBtn = document.querySelectorAll('button.cancel');
+  cancelBtn.forEach(btn => btn.addEventListener('click', closeForm));
+
+  //sidebar buttons
+  const todayBtn = document.querySelector('button[data-key="today"]');
+  todayBtn.addEventListener('click', viewTodayTask.bind(this, mainContent));
+  todayBtn.addEventListener('click', changeOnViewBtn.bind(this, todayBtn));
+
+  const allTaskBtn = document.querySelector('button[data-key="all-tasks"]');
+  allTaskBtn.addEventListener('click', viewAllTask.bind(this, mainContent))
+  allTaskBtn.addEventListener('click', changeOnViewBtn.bind(this, allTaskBtn))
 
   return content;
 }

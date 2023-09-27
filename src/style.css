@@ -221,10 +221,18 @@ button {
   border-radius: 3px;
 }
 
-.sidebar button.on-view:hover,
-.main-project-list button.on-view:hover {
+.sidebar button.on-view:hover {
   background-color: var(--accent-color-3);
 }
+
+.main-project-list button.on-view {
+  background-color: var(--accent-color-5);
+}
+
+.main-project-list button:hover {
+  background-color: var(--accent-color-4);
+}
+
 /* sidebar project style */
 .project-list {
   padding: var(--small-padding);
@@ -241,10 +249,6 @@ button {
   border-bottom: var(--accent-color-4) 1px solid;
   display: flex;
   align-items: center;
-}
-
-.project-dom > :first-child:hover {
-  background-color: var(--accent-color-4);
 }
 
 .delete-project {
@@ -343,6 +347,7 @@ button[data-key="add-task"]::before {
   display: flex;
   gap: var(--small-gap);
 }
+
 button.edit,
 button.delete,
 button.expand, 
@@ -502,6 +507,7 @@ button.expand::before {
 }
 
 /*Set completed task data*/
+.task[data-complete="true"] [data-info="title"],
 .task[data-complete="true"] [data-info="description"],
 .task[data-complete="true"] [data-info="date"],
 .task[data-complete="true"] .done::before {
@@ -550,12 +556,11 @@ button.expand::before {
 }
 
 .select-container {
-  display: flex;
+  display: grid;
+  column-gap: var(--medium-font);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 
-.select-container > div {
-  flex: 1 0 auto;
-}
 .title,
 .description,
 .project-input {
@@ -632,7 +637,8 @@ textarea:focus {
 }
 
 .date input:focus-visible,
-.priority :focus-visible {
+.priority :focus-visible,
+.project :focus-visible {
   outline: 1px solid var(--accent-color-1);
 }
 
@@ -646,8 +652,17 @@ textarea:focus {
   color: var(--dark-color-1);
 }
 
-.priority select {
+.priority select, 
+.project select {
   background-color: inherit;
+}
+
+.project select,
+.priority select {
+  min-width: 12ch;
+  width: 12ch;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 option {

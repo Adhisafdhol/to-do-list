@@ -1,9 +1,8 @@
 import { toggleClassName } from "./hide-elements";
 import PubSub from "pubsub-js";
-
-function viewTaskMode(e) {
-  const viewMode = e.target.getAttribute('data-key');
-}
+import { printTodayTasks } from "./print-today-task";
+import { printAllTasks } from "./print-all-task";
+import { printProjectTasks } from "./print-by-project";
 
 function selectBtn(e) {
   removeSidebarSelectedBtn();
@@ -37,4 +36,31 @@ function viewProjectList(e) {
   toggleClassName(e.target, 'project-on-view');
 }
 
-export {viewTaskMode, selectBtn, toggleView, showDialog, resetForm, viewProjectList};
+function viewTodayTask(container) {
+  changeView(container, printTodayTasks);
+}
+
+function viewAllTask(container) {
+  changeView(container, printAllTasks);
+}
+
+function viewProjectTask(target) {
+  const container = document.querySelector('.main-content');
+  changeProjectView(container, target, printProjectTasks);
+}
+
+function changeProjectView(container, target, func) {
+  const toReplace = container.querySelector('.task-list');
+  container.replaceChild(func(target), toReplace);
+
+  PubSub.publish('viewChanged', func);
+}
+
+function changeView(container, func) {
+  const toReplace = container.querySelector('.task-list');
+  container.replaceChild(func(), toReplace);
+
+  PubSub.publish('viewChanged', func);
+}
+
+export {selectBtn, toggleView, showDialog, resetForm, viewProjectList, viewTodayTask, viewAllTask, viewProjectTask};

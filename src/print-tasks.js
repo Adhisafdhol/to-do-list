@@ -74,38 +74,6 @@ function createBtnClassWithData(className, keyName, key) {
   return btn
 }
 
-function printAllTasks() {
-  const taskListContainer = createWrapperWithClass('div', 'task-list');
-  taskListContainer.setAttribute('data-view', 'all-task');
-  AppendAllData('task', taskListContainer);
-
-  return taskListContainer;
-}
-
-// update task content 
-function updateTaskDom(container) {
-  const toReplace = container.querySelector('.task-list');
-  container.replaceChild(printAllTasks(), toReplace);
-}
-
-//appendAllData
-function  AppendAllData(key, container) {
-  const length = localStorage.length;
-  let keys = initiateKey();
-
-  for (let i = 0; keys < length; i++) {
-    let currentKey = `${key}` + `${i}`;
-    if(isKeyExist(currentKey)) {
-      keys += 1;
-      container.appendChild(createTaskDom(getData(currentKey), currentKey));
-    }
-  }
-}
-
-function initiateKey() {
-  return isKeyExist('project')?1:0;
-}
-
 //Create wrapper container
 function createWrapper(tag) {
   const container = document.createElement(tag);
@@ -118,11 +86,6 @@ function createWrapperWithClass(tag, name) {
   container.classList.add(name);
 
   return container;
-}
-
-//edit task 
-function getObjKey(target) {
-  const objKey = target.getAttribute('data-key');
 }
 
 //Change the completion task property
@@ -228,4 +191,4 @@ function toggleTaskView(target) {
   toggleClassName(findParent(target), 'detail-open');
 }
 
-export {printAllTasks, createWrapperWithClass, updateTaskDom, initiateKey};
+export {createWrapperWithClass, createTaskDom};

@@ -1,10 +1,10 @@
 import PubSub from "pubsub-js";
-import { initiateKey, isProjectExist } from "./print-tasks";
+import { initiateKey } from "./print-all-task";
 
 //constructor function to create a task
-const Task = (title, description, date, priority, complete, project) => {
+const Task = (title, description, date, priority, complete, project, dateCreated) => {
   let dateVal = createDate(date);
-  return {title, description, date: dateVal, priority, complete, project};
+  return {title, description, date: dateVal, priority, complete, project, dateCreated};
 };
 
 //Check if key exist
@@ -65,7 +65,7 @@ function submitNewTask(target) {
 
 function approveForm(target) {
   if (checkRequiredVal(getTitle(target))) {
-    storeData(Task(getTitle(target), getDescription(target), getDate(target), getPriority(target), false, getProjectVal(target) ), createKeyName('task'));
+    storeData(Task(getTitle(target), getDescription(target), getDate(target), getPriority(target), false, getProjectVal(target), new Date()), createKeyName('task'));
   }
 }
 
@@ -78,8 +78,9 @@ function submitEditedTask(target) {
 }
 
 function approveEditedTask(target, key) {
+  const date = getData(key).dateCreated;
   if (checkRequiredVal(getTitle(target))) {
-    updateData(Task(getTitle(target), getDescription(target), getDate(target), getPriority(target), false), key);
+    updateData(Task(getTitle(target), getDescription(target), getDate(target), getPriority(target), false, getProjectVal(target), date), key);
   }
 }
 
@@ -170,7 +171,6 @@ function compareTaskProject(obj, toCompare) {
 function deleteProject(target) {
   const key = target.getAttribute('data-key');
   updateProjectData(key);
-
   findAllProjectTasks(key, 'task');
   //deleteData(key);
 

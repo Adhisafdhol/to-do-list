@@ -9,15 +9,12 @@ function openEditForm(key) {
 }
 
 function openDeleteForm(key) {
-  const taskObj = getData(key);
   setDeleteForm(key);
   PubSub.publish('deleteFormOpened');
 }
 
 function openDeleteProjectForm(key) {
-  //const taskObj = getData(key);
   setDeleteProjectForm(key);
-  console.log(key);
   PubSub.publish('deleteProjectOpened');
 }
 
@@ -54,4 +51,12 @@ function setDeleteProjectForm(key) {
   deleteBtn.setAttribute('data-key', key);
 }
 
-export {openDeleteForm, openEditForm, openDeleteProjectForm}
+function closeForm(e) {
+  const dialog = findMyDialog(e.target);
+  dialog.close();
+}
+
+function findMyDialog(target) {
+  return target.parentElement.parentElement.parentElement;
+}
+export {openDeleteForm, openEditForm, openDeleteProjectForm, closeForm};

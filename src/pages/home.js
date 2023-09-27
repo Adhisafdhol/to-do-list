@@ -1,10 +1,8 @@
-import { add } from "date-fns";
-import { printAllTasks, createWrapperWithClass} from "../print-tasks";
-import { toDoList } from "../todo";
-import { viewTaskMode } from "../controller";
+import {createWrapperWithClass} from "../print-tasks";
+import { printAllTasks } from "../print-all-task";
 import { createPopUpModal, createEditPopUpModal, createDeletePopUpModal, createProjectPopUp, createDeleteProjectModal } from "../modal-form";
-import { storeData} from "../todo";
 import { createProjectDom, printAllProject } from "../print-project";
+import { printProjectTasks } from "../print-by-project";
 
 function home () {
   const homeContainer = document.createElement('div');
@@ -102,7 +100,7 @@ function createAddTaskBtn() {
 
 function createButton(name, dataKey) {
   const button = createWrapperWithClass('button', name)
-  button.setAttribute('data-key', dataKey.split(' ').join('-'))
+  button.setAttribute('data-key', dataKey.split(' ').join('-').toLowerCase());
   button.setAttribute('type', 'button');
   button.textContent = dataKey;
 

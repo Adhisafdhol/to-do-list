@@ -23,4 +23,14 @@ function resetLabel(target) {
   target.classList.remove('visually-hidden');
 }
 
-export {hideLabel, resetFormLabel, toggleClassName};
+function resetSelectedBtn() {
+  const btn = document.querySelectorAll('.sidebar .on-view');
+  btn.forEach(el => removeClassName(el, 'on-view'));
+}
+
+function changeOnViewBtn(target) {
+  resetSelectedBtn();
+  addClassName(target, 'on-view')
+}
+
+export {hideLabel, resetFormLabel, toggleClassName, changeOnViewBtn};

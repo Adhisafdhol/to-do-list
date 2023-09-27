@@ -1,7 +1,9 @@
 import { createWrapperWithClass } from "./print-tasks";
-import { deleteProject, getData } from "./todo";
+import { getData } from "./todo";
 import { createSelect, createOption } from "./modal-form";
 import { openDeleteProjectForm } from "./form-controller";
+import { viewProjectTask } from "./controller";
+import { changeOnViewBtn } from "./hide-elements";
 
 function checkProjectView() {
   return document.querySelector('.project-on-view')?true:false;
@@ -37,10 +39,12 @@ function iterateProjectDom(container, project) {
 
 function createProjectDom(obj) {
   const project = createWrapperWithClass('li', `project-dom`);
+  project.setAttribute('data-project', `${obj}`);
   const projectBtn = createWrapperWithClass('button', 'project-btn')
   projectBtn.textContent = obj;
-  project.setAttribute('data-project', `${obj}`);
   projectBtn.setAttribute('data-project', `${obj}`);
+  projectBtn.addEventListener('click', viewProjectTask.bind(this, projectBtn.getAttribute('data-project')));
+  projectBtn.addEventListener('click', changeOnViewBtn.bind(this, projectBtn))
   const projectDeleteBtn = createWrapperWithClass('button', 'delete-project')
   projectDeleteBtn.setAttribute('data-project', `${obj}`);
   projectDeleteBtn.addEventListener('click', openDeleteProjectForm.bind(this, projectDeleteBtn.getAttribute('data-project')));

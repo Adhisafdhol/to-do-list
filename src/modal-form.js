@@ -67,6 +67,7 @@ function createButton(name, text) {
 function createCloseBtn(name, text) {
   const btn = createButton(name, text);
   btn.formNoValidate = true;
+  btn.setAttribute('type', 'button');
 
   return btn;
 }
@@ -147,7 +148,6 @@ function createPopUpModal() {
   const btnContainer = createWrapperWithClass('div', 'btn-container')
   const closeBtn = createCloseBtn('cancel', 'Cancel');
   const submitBtn = createButton('submit', 'Add task');
-  submitBtn.setAttribute('type', 'submit')
 
   formEl.appendChild(titleInput);
   formEl.appendChild(descriptionInput);
@@ -168,9 +168,6 @@ function createEditPopUpModal() {
   form.setAttribute('id', 'edit-task-form');
   form.classList.remove('task-form');
   form.classList.add('edit-task-form');
-  const cancelBtn = modal.querySelector('.cancel');
-  cancelBtn.classList.add('cancel-edit');
-  cancelBtn.classList.remove('cancel');
   const editTaskBtn = modal.querySelector('.submit');
   editTaskBtn.textContent = 'Edit task'
   editTaskBtn.classList.remove('submit');
@@ -189,6 +186,8 @@ function createDeletePopUpModal() {
   const btnContainer = createWrapperWithClass('div', 'btn-container')
   const closeBtn = createCloseBtn('cancel', 'Cancel');
   const submitBtn = createButton('delete-task', 'Delete');
+  submitBtn.setAttribute('type', 'submit');
+  submitBtn.autofocus = true;
   container.appendChild(btnContainer);
   btnContainer.appendChild(closeBtn);
   btnContainer.appendChild(submitBtn);
@@ -203,6 +202,7 @@ function createDeleteProjectModal() {
   const deleteWarning = modal.querySelector('.delete-warning');
   deleteWarning.textContent = 'Are you sure you want to delete this project?'
   const deleteBtn = modal.querySelector('.delete-task');
+  deleteBtn.autofocus = true;
   deleteBtn.classList.add('submit-delete-project');
   deleteBtn.classList.remove('delete-task');
 
