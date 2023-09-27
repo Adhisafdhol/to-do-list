@@ -34,6 +34,8 @@ function setEditFormInput(obj, key) {
   date.value = dateVal;
   const priority = form.querySelector('.priority select');
   priority.value = obj['priority'];
+  const project = form.querySelector('.project select');
+  project.value = obj['project'];
   const btn = document.querySelector('.submit-edit');
   btn.setAttribute('data-key', key);
 }
