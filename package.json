@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Aadheuss/to-do-list.git"
+    "url": "git+https://github.com/Adhisafdhol/to-do-list.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Aadheuss/to-do-list/issues"
+    "url": "https://github.com/Adhisafdhol/to-do-list/issues"
   },
-  "homepage": "https://github.com/Aadheuss/to-do-list#readme",
+  "homepage": "https://github.com/Adhisafdhol/to-do-list#readme",
   "devDependencies": {
     "css-loader": "^6.7.2",
     "html-webpack-plugin": "^5.5.0",
